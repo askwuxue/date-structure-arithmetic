@@ -15,8 +15,6 @@ function quickSort (list) {
         }
     }
     return quickSort(lesser).concat(mid, quickSort(greater));
-    // return lesser.concat(mid, greater);
-    // console.log(pivot, lesser, mid, greater);
 }
 
 console.log(quickSort([5,1,3,5,6,41,2,3,4,8,4,88,1152,65]));
