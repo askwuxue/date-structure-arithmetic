@@ -1,14 +1,25 @@
 import java.util.Scanner;
 import java.lang.Integer;
-public class projectE {
+public class Main {
     public static void main (String[] args) {
         Scanner scan = new Scanner(System.in);
         // Integer integer = new Integer();
-        String yearString = scan.nextLine();
-        int year = Integer.parseInt(yearString);
-        // System.out.println(year);
+        int[] tempArr = new int[100];
+        String nextString = scan.nextLine();
+        int year = 0;
+        int i = 0;
+        while (nextString != null && !nextString.equals("")) {
+            year = Integer.parseInt(nextString);
+            // System.out.println(year);
+            tempArr[i] = year;
+            // System.out.println(i);
+            i++;
+            nextString = scan.nextLine();
+        }
+        for (int j = 0; j < i; j++) {
+            year = tempArr[j];
             if (year == 0) {
-                System.out.println("no exist");
+                return;
             }else if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
                 System.out.println("yes");
             } else {
@@ -19,5 +30,6 @@ public class projectE {
                     System.out.println("no");
                 }
             }
+        }
     }
 }
