@@ -1,8 +1,15 @@
 import java.util.Scanner;
-public class projectD {
+public class Main {
     public static void main (String[] args) {
         Scanner scan = new Scanner(System.in);
         int n = scan.nextInt();
+        if (n == 0) {
+            System.out.println(0);
+            return;
+        }
+        if (n > 10000) {
+            return;
+        }
         int sum = 0;
         sum += n;
         while (true) {
