@@ -1,6 +1,5 @@
 let quickSort = (arr) => {
-    if (arr.length === 0) return [];
-    if (arr.length === 1) return arr;
+    if (arr.length <= 1) return arr;
     let randomNum = Math.floor(Math.random() * arr.length);
     let currentNum = arr[randomNum];
     let lesser = [];
