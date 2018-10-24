@@ -50,8 +50,6 @@ class QuickSort {
         return new int[] {less + 1, more};
     }
 
-
-
     public static void swap(int[] arr, int i, int j) {
         int temp = arr[i];
         arr[i] = arr[j];

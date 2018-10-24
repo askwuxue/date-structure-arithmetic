@@ -15,7 +15,7 @@ class HeapSort {
             heapInsert(arr, i);
         }
 
-        // heapify的过程 当某个数发生变化时
+        // heapify的过程 当某个数发生变化时  当数组中的第一个数发生变化
         int size = arr.length;
         swap(arr, 0, --size);
         while (size > 0) {
@@ -26,6 +26,7 @@ class HeapSort {
 
     // 调整顺序 大根堆的过程
     private static void heapInsert(int[] arr, int index) {
+        // 当前的值与父节点的值得比较
         while (arr[index] > arr[(index - 1) / 2]) {
             swap(arr, index, (index - 1) / 2);
             index = (index - 1) / 2;
@@ -51,5 +52,4 @@ class HeapSort {
         arr[i] = arr[j];
         arr[j] = temp;
     }
-
 }

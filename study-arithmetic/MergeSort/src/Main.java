@@ -58,11 +58,11 @@ public class Main {
         while (p1 <= mid && p2 <= r) {
             help[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
         }
-        // 必然是左边或者右边越界
+        // p2 越界
         while(p1 <= mid) {
             help[i++] = arr[p1++];
         }
-
+        // p1 越界
         while(p2 <= r) {
             help[i++] = arr[p2++];
         }
