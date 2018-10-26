@@ -34,7 +34,7 @@ class MaxNum {
         for (int i = 0; i < arr.length; i++) {
             // 确定进入的桶的序号
             bid = bucket(arr[i], arr.length, min, max);
-            System.out.println(bid);
+//            System.out.println(bid);
             // 更新进入桶的最大值与最小值
             mins[bid] = hasNum[bid] ? Math.min(mins[bid], arr[i]) : arr[i];
             maxs[bid] = hasNum[bid] ? Math.max(maxs[bid], arr[i]) : arr[i];
