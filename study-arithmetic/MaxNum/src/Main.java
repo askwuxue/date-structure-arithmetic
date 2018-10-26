@@ -15,16 +15,17 @@ class MaxNum {
         }
         int max = Integer.MIN_VALUE;
         int min = Integer.MAX_VALUE;
+        // 找出最大值和最小值
         for (int i = 0; i < arr.length; i++) {
             max = Math.max(max, arr[i]);
             min = Math.min(min, arr[i]);
         }
-//        System.out.println(max + "-----" + min);
+        // 只有一种数
         if (min == max) {
             return 0;
         }
 
-        // 准备存储每个桶的最大，最小，以及是否进入过数的数组
+        // 存储每个桶的最大 最小 以及是否有数进入的数组
         boolean[] hasNum = new boolean[arr.length + 1];
         int[] maxs = new int[arr.length + 1];
         int[] mins = new int[arr.length + 1];
@@ -34,7 +35,7 @@ class MaxNum {
             // 确定进入的桶的序号
             bid = bucket(arr[i], arr.length, min, max);
             System.out.println(bid);
-            // 该桶的最小 最大值 已经进入过数的， 在当前进桶的数与桶中最大最小值比较
+            // 更新进入桶的最大值与最小值
             mins[bid] = hasNum[bid] ? Math.min(mins[bid], arr[i]) : arr[i];
             maxs[bid] = hasNum[bid] ? Math.max(maxs[bid], arr[i]) : arr[i];
             hasNum[bid] = true;
@@ -43,7 +44,7 @@ class MaxNum {
         int res = 0;
         int i = 1;
         int lastMax = arr[0];
-        for (; i < arr.length; i++) {
+        for (; i <= arr.length; i++) {
             // 非空桶
             if (hasNum[i]) {
                 res = Math.max(res, (mins[i] - lastMax));
@@ -53,6 +54,7 @@ class MaxNum {
         return res;
     }
 
+    // 确定进入的桶的序号
     private static int bucket(long num, long len, long min ,long max) {
         return (int)((num - min) * len / (max - min));
     }
