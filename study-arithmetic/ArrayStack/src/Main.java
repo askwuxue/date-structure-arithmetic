@@ -22,7 +22,7 @@ class ArrayStack {
         size = 0;
     }
 
-    // peek 操作
+    // peek 操作  查看栈顶的元素 不弹出
     public Integer peek() {
         if (size == 0) {
             return null;
