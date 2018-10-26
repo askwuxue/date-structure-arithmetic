@@ -16,6 +16,7 @@ class HeapSort {
         }
 
         // heapify的过程 当某个数发生变化时  当数组中的第一个数发生变化
+        // 取出第一个数的过程
         int size = arr.length;
         swap(arr, 0, --size);
         while (size > 0) {
