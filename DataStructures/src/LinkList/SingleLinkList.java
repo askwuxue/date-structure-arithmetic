@@ -22,9 +22,24 @@ public class SingleLinkList {
         list.append(hero6);
         list.delete(hero6);
         // list.delete(hero1);
-
-
+//        list.delete(hero1);
+//        list.delete(hero2);
+//        list.delete(hero3);
         list.show();
+//        list.delete(hero4);
+
+
+        HeroLinkList head = list.getHead();
+
+        int l = list.length(head);
+
+        System.out.println("length: " + l);
+
+        HeroLinkList lastIndex = list.findLastIndex(4);
+
+        System.out.println(lastIndex);
+
+//        list.show();
     }
 }
 
@@ -122,6 +137,7 @@ class LinkList {
             if (temp.next.no == hero.no) {
                 temp.next = temp.next.next;
                 flag = true;
+                break;
             }
             temp = temp.next;
         }
@@ -131,6 +147,50 @@ class LinkList {
             System.out.println("node delete failed");
         }
 
+    }
+
+    // 获得链表的头节点
+    public HeroLinkList getHead() {
+        return head;
+    }
+
+    // 获得链表的有效长度，不包括头节点
+    public int length(HeroLinkList head) {
+
+        int l = 0;
+
+        // 当前节点
+        HeroLinkList cur = head.next;
+
+        // 当前节点不为null
+        while (cur != null) {
+            l++;
+            cur = cur.next;
+        }
+
+        return l;
+    }
+
+    // 寻找链表中的倒数第k个数
+    public HeroLinkList findLastIndex(int k) {
+
+        // 获得链表的长度
+        int l = this.length(head);
+
+        // 合法性检验
+        if (k < 1 || k > l) {
+            throw new RuntimeException("input value invalid");
+        }
+
+        // 获得链表的第一个元素
+        HeroLinkList cur = head.next;
+
+        // 循环找到倒数第k的数
+        for (int i = 0; i < l - k; i++) {
+            cur = cur.next;
+        }
+
+        return cur;
     }
 
     // 显示链表元素
