@@ -22,11 +22,11 @@ public class SingleLinkList {
         list.append(hero6);
         list.delete(hero6);
         // list.delete(hero1);
-//        list.delete(hero1);
-//        list.delete(hero2);
-//        list.delete(hero3);
+        list.delete(hero1);
+        list.delete(hero2);
+        list.delete(hero3);
         list.show();
-//        list.delete(hero4);
+        list.delete(hero4);
 
 
         HeroLinkList head = list.getHead();
@@ -35,11 +35,15 @@ public class SingleLinkList {
 
         System.out.println("length: " + l);
 
-        HeroLinkList lastIndex = list.findLastIndex(4);
+//        HeroLinkList lastIndex = list.findLastIndex(4);
 
-        System.out.println(lastIndex);
+//        System.out.println(lastIndex);
 
 //        list.show();
+
+        list.reverse();
+
+        list.show();
     }
 }
 
@@ -191,6 +195,39 @@ class LinkList {
         }
 
         return cur;
+    }
+
+    // 反转链表
+    public void reverse() {
+
+        // 链表为空或者只有一个元素直接返回
+        if (head.next == null || head.next.next == null) {
+            return;
+        }
+
+        // 当前的遍历的元素
+        HeroLinkList cur = head.next;
+
+        // 记录当前节点下一个位置
+        HeroLinkList next = null;
+
+        // 创建一个新的头结点
+        HeroLinkList reverseHead = new HeroLinkList(0, "", "");
+
+        // 遍历链表
+        while (cur != null) {
+            // 更新下一个节点
+            next = cur.next;
+            // 反转链表的头节点的next指向当前元素的下一个节点
+            cur.next = reverseHead.next;
+            // 反转链表的头结点的next指向当前节点
+            reverseHead.next = cur;
+            // 更新当前节点
+            cur = next;
+        }
+
+        head.next = reverseHead.next;
+
     }
 
     // 显示链表元素
