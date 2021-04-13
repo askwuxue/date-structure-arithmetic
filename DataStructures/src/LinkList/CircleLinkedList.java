@@ -77,9 +77,6 @@ class LinkedList {
         while (helper.next != first) {
             helper = helper.next;
         }
-        System.out.println("helper.next is: " + helper.next);
-        System.out.println("first is: " + first);
-
 
         // 根据k，将first， helper移动到正确的位置
         for (int i = 1; i < k; i++) {
@@ -93,9 +90,11 @@ class LinkedList {
                 helper = helper.next;
             }
             System.out.println("output is: " + first.no);
-            helper = first;
+
+            // help.next 指向新的first 原本的first指向节点会被垃圾回收
             first = first.next;
-            break;
+            helper.next = first;
+
         }
         System.out.println("lastOutput is: " + helper.no);
         return;
