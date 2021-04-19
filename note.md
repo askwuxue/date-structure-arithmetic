@@ -384,6 +384,62 @@ var reverseList = function(head) {
     return prev;
 };
 ```
+###### 题目描述
+输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
+
+ 
+
+示例 1：
+
+输入：head = [1,3,2]
+输出：[2,3,1]
+ 
+
+限制：
+
+0 <= 链表长度 <= 10000
+
+
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+###### 代码实现
+```ts
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {number[]}
+ */
+//  已注释代码是先实现链表反转再加入数组中
+var reversePrint = function(head) {
+    if (head === null) return [];
+    // let pre = null;
+    // let temp = null;
+    let cur = head;
+    let num = [];
+    while (cur !== null) {
+        // temp = cur.next;
+        // cur.next = pre;
+        // pre = cur;
+        // cur = temp;
+        // TODO 使用unshift()的时间复杂度时多少，和push()比呢？
+        num.unshift(cur.val);
+        cur = cur.next;
+    }
+    return num;
+};
+```
+
+
+
 ### 时间复杂度和空间复杂度
 
 
