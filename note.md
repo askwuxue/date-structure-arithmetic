@@ -320,16 +320,6 @@ var getKthFromEnd = function(head, k) {
 
 
 
-
-
-
-
-
-
-
-
-
-
 ###### 题目描述
 反转一个单链表。
 
@@ -393,7 +383,7 @@ var reverseList = function(head) {
 
 输入：head = [1,3,2]
 输出：[2,3,1]
- 
+
 
 限制：
 
@@ -485,7 +475,7 @@ var reversePrint = function(head) {
 
 输入：head = [1,1,2,3,3]
 输出：[1,2,3]
- 
+
 
 提示：
 
