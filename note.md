@@ -365,24 +365,59 @@ class CircleQueue {
 }
 ```
 
+#### `leetCode`
 
-##### LeetCode
-###### 题目描述
-写一个 RecentCounter 类来计算特定时间范围内最近的请求。
+##### [933. 最近的请求次数](https://leetcode-cn.com/problems/number-of-recent-calls/)
 
-请你实现 RecentCounter 类：
+难度简单83
 
-RecentCounter() 初始化计数器，请求数为 0 。
-int ping(int t) 在时间 t 添加一个新请求，其中 t 表示以毫秒为单位的某个时间，并返回过去 3000 毫秒内发生的所有请求数（包括新请求）。确切地说，返回在 [t-3000, t] 内发生的请求数。
-保证 每次对 ping 的调用都使用比之前更大的 t 值。
+写一个 `RecentCounter` 类来计算特定时间范围内最近的请求。
 
-来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/number-of-recent-calls
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+请你实现 `RecentCounter` 类：
 
-###### 代码实现
-主要实现思想，利用队列。先将当前的时间放进队列内，然后从队列头依次判断对应的队列元素是否出队。
+- `RecentCounter()` 初始化计数器，请求数为 0 。
+- `int ping(int t)` 在时间 `t` 添加一个新请求，其中 `t` 表示以毫秒为单位的某个时间，并返回过去 `3000` 毫秒内发生的所有请求数（包括新请求）。确切地说，返回在 `[t-3000, t]` 内发生的请求数。
+
+**保证** 每次对 `ping` 的调用都使用比之前更大的 `t` 值。
+
+ 
+
+**示例：**
+
+```
+输入：
+["RecentCounter", "ping", "ping", "ping", "ping"]
+[[], [1], [100], [3001], [3002]]
+输出：
+[null, 1, 2, 3, 3]
+
+解释：
+RecentCounter recentCounter = new RecentCounter();
+recentCounter.ping(1);     // requests = [1]，范围是 [-2999,1]，返回 1
+recentCounter.ping(100);   // requests = [1, 100]，范围是 [-2900,100]，返回 2
+recentCounter.ping(3001);  // requests = [1, 100, 3001]，范围是 [1,3001]，返回 3
+recentCounter.ping(3002);  // requests = [1, 100, 3001, 3002]，范围是 [2,3002]，返回 3
+```
+
+ 
+
+**提示：**
+
+- `1 <= t <= 109`
+- 保证每次对 `ping` 调用所使用的 `t` 值都 **严格递增**
+- 至多调用 `ping` 方法 `104` 次
+
+
+
+**思路**
+
+利用队列。先将当前的时间放进队列内，然后从队列头依次判断对应的队列元素是否出队。
 出队条件，队列中的元素 < (当前t - 3000)
+
+
+
+**code**
+
 ```JavaScript
 var RecentCounter = function() {
     this.arr = [];
@@ -396,7 +431,6 @@ RecentCounter.prototype.ping = function(t) {
     this.arr.push(t);
     while (this.arr[0] < t - 3000) {
         this.arr.shift();
-        // return this.arr.length;
     }
     return this.arr.length;
 };
@@ -414,16 +448,30 @@ RecentCounter.prototype.ping = function(t) {
 2. 查找：时间复杂为O(n)
 3. 删除和插入的时间复杂度O(1)
 
-#### LeetCode
-###### 题目描述
+#### `LeetCode`
+
+#### [剑指 Offer 22. 链表中倒数第k个节点](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)
+
+难度简单182
+
 输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。
 
-例如，一个链表有 6 个节点，从头节点开始，它们的值依次是 1、2、3、4、5、6。这个链表的倒数第 3 个节点是值为 4 的节点。
+例如，一个链表有 `6` 个节点，从头节点开始，它们的值依次是 `1、2、3、4、5、6`。这个链表的倒数第 `3` 个节点是值为 `4` 的节点。
 
-来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-###### 代码实现
+ 
+
+**示例：**
+
+```
+给定一个链表: 1->2->3->4->5, 和 k = 2.
+
+返回链表 4->5.
+```
+
+
+
+**code**
+
 ```JavaScript
 /**
  * Definition for singly-linked list.
@@ -463,23 +511,60 @@ var getKthFromEnd = function(head, k) {
 
 
 
-###### 题目描述
-反转一个单链表。
+#### [206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)
 
-示例:
+难度简单1704
 
-输入: 1->2->3->4->5->NULL
-输出: 5->4->3->2->1->NULL
-进阶:
-你可以迭代或递归地反转链表。你能否用两种方法解决这道题？
+给你单链表的头节点 `head` ，请你反转链表，并返回反转后的链表。
 
-来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/reverse-linked-list
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2021/02/19/rev1ex1.jpg)
+
+```
+输入：head = [1,2,3,4,5]
+输出：[5,4,3,2,1]
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2021/02/19/rev1ex2.jpg)
+
+```
+输入：head = [1,2]
+输出：[2,1]
+```
+
+**示例 3：**
+
+```
+输入：head = []
+输出：[]
+```
+
+ 
+
+**提示：**
+
+- 链表中节点的数目范围是 `[0, 5000]`
+- `-5000 <= Node.val <= 5000`
+
+ 
+
+**进阶：**链表可以选用迭代或递归方式完成反转。你能否用两种方法解决这道题？
 
 
 
-##### 代码实现
+**思路**
+
+需要用一个辅助链表来完成，不能在原先链表上操作。辅助链表随着我们遍历的链表不断变化。当前节点的`next`总是指向辅助链表的头节点。遍历结束，辅助链表也被更新为当前链表的逆序链表。
+
+
+
+**code**
+
 ```javascript
 /**
  * Definition for singly-linked list.
@@ -517,29 +602,39 @@ var reverseList = function(head) {
     return prev;
 };
 ```
-###### 题目描述
+
+
+#### [剑指 Offer 06. 从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
+
+难度简单139
+
 输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
 
- 
+**示例 1：**
 
-示例 1：
-
+```
 输入：head = [1,3,2]
 输出：[2,3,1]
+```
 
+**限制：**
 
-限制：
-
+```
 0 <= 链表长度 <= 10000
+```
 
 
 
-来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+**思路**
 
-###### 代码实现
-1. 
+1. 使用JavaScript数组的unshift(),将链表元素依次数组头部加入。时间复杂度使用O(n)
+2. 使用递归，将函数依次入栈，从最后一个元素依次push到数组中
+
+
+
+**code**
+
+1. JavaScript数组方法
 ```ts
 /**
  * Definition for singly-linked list.
@@ -572,7 +667,7 @@ var reversePrint = function(head) {
 };
 ```
 
-2. 
+2. 递归
 ```ts
 /**
  * Definition for singly-linked list.
@@ -657,8 +752,60 @@ var deleteDuplicates = function(head) {
 };
 ```
 
-### 时间复杂度和空间复杂度
+### 树
+
+#### `leetCode`
+
+#### [104. 二叉树的最大深度](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)
+
+难度简单862
+
+给定一个二叉树，找出其最大深度。
+
+二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+
+**说明:** 叶子节点是指没有子节点的节点。
+
+**示例：**
+给定二叉树 `[3,9,20,null,null,15,7]`，
+
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+
+返回它的最大深度 3 。
+
+**思路**
+
+可以使用深度优先(DFS)遍历,树的高度等于`max(root.left, root.right) + 1`，根据这个规律可以使用递归，遍历所有节点之后，可以得到树的最大深度。
+
+时间复杂度为O(n)
+
+**code**
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+
+let maxDepth = function(root) {
+    if (root === null) return 0;
+    return Math.max(maxDepth(root.left) + maxDepth(root.right)) + 1
+}
+```
 
 
 
-## 算法
