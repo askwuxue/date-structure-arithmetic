@@ -450,7 +450,7 @@ RecentCounter.prototype.ping = function(t) {
 
 #### `LeetCode`
 
-#### [剑指 Offer 22. 链表中倒数第k个节点](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)
+##### [剑指 Offer 22. 链表中倒数第k个节点](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)
 
 难度简单182
 
@@ -511,7 +511,7 @@ var getKthFromEnd = function(head, k) {
 
 
 
-#### [206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)
+##### [206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)
 
 难度简单1704
 
@@ -604,7 +604,8 @@ var reverseList = function(head) {
 ```
 
 
-#### [剑指 Offer 06. 从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
+
+##### [剑指 Offer 06. 从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
 
 难度简单139
 
@@ -696,36 +697,47 @@ var reversePrint = function(head) {
 ```
 
 
-###### 题目描述
-存在一个按升序排列的链表，给你这个链表的头节点 head ，请你删除所有重复的元素，使每个元素 只出现一次 。
+
+##### [83. 删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
+
+难度简单567
+
+存在一个按升序排列的链表，给你这个链表的头节点 `head` ，请你删除所有重复的元素，使每个元素 **只出现一次** 。
 
 返回同样按升序排列的结果链表。
 
- 
+ 
 
-示例 1：
+**示例 1：**
 
+![img](https://assets.leetcode.com/uploads/2021/01/04/list1.jpg)
 
+```
 输入：head = [1,1,2]
 输出：[1,2]
-示例 2：
+```
 
+**示例 2：**
 
+![img](https://assets.leetcode.com/uploads/2021/01/04/list2.jpg)
+
+```
 输入：head = [1,1,2,3,3]
 输出：[1,2,3]
+```
+
+ 
+
+**提示：**
+
+- 链表中节点数目在范围 `[0, 300]` 内
+- `-100 <= Node.val <= 100`
+- 题目数据保证链表已经按升序排列
 
 
-提示：
 
-链表中节点数目在范围 [0, 300] 内
--100 <= Node.val <= 100
-题目数据保证链表已经按升序排列
+**code**
 
-来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-
-###### 代码实现
 ```ts
 /**
  * Definition for singly-linked list.
@@ -756,7 +768,7 @@ var deleteDuplicates = function(head) {
 
 #### `leetCode`
 
-#### [104. 二叉树的最大深度](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)
+##### [104. 二叉树的最大深度](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)
 
 难度简单862
 
@@ -808,4 +820,85 @@ let maxDepth = function(root) {
 ```
 
 
+
+##### [110. 平衡二叉树](https://leetcode-cn.com/problems/balanced-binary-tree/)
+
+难度简单674
+
+给定一个二叉树，判断它是否是高度平衡的二叉树。
+
+本题中，一棵高度平衡二叉树定义为：
+
+> 一个二叉树*每个节点* 的左右两个子树的高度差的绝对值不超过 1 。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2020/10/06/balance_1.jpg)
+
+```
+输入：root = [3,9,20,null,null,15,7]
+输出：true
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2020/10/06/balance_2.jpg)
+
+```
+输入：root = [1,2,2,3,3,null,null,4,4]
+输出：false
+```
+
+**示例 3：**
+
+```
+输入：root = []
+输出：true
+```
+
+ 
+
+**提示：**
+
+- 树中的节点数在范围 `[0, 5000]` 内
+- `-104 <= Node.val <= 104`
+
+
+
+**思路**：
+
+1. 自顶向下的方式递归，如果左子树平衡，右子树平衡，它们的高度差小于等于1。以当前节点为根节点的树平衡。
+2. 自底向上的方式
+
+**code**
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function(root) {
+    if (root === null) return true;
+    if (isBalanced(root.left) && isBalanced(root.right) && Math.abs(height(root.left) - height(root.right)) <= 1) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+let height = function (root) {
+    if (root === null) return 0;
+    return Math.max(height(root.left), height(root.right)) + 1;
+}
+```
 
