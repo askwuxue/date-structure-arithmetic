@@ -870,9 +870,14 @@ let maxDepth = function(root) {
 **思路**：
 
 1. 自顶向下的方式递归，如果左子树平衡，右子树平衡，它们的高度差小于等于1。以当前节点为根节点的树平衡。
-2. 自底向上的方式
+
+2. 自底向上的方式，判断左子树和右子树是否平衡。如果左子树和右子树的高度差的绝对值小于等于1，则认为平衡。
+
+   返回最大子树高度。高度差绝对值大于1，则认为不平衡。返回-1.只要其中一棵子树返回-1。则认为整棵树不平衡。
 
 **code**
+
+1. 
 
 ```js
 /**
@@ -901,4 +906,38 @@ let height = function (root) {
     return Math.max(height(root.left), height(root.right)) + 1;
 }
 ```
+
+2. 
+
+   ```js
+   /**
+    * Definition for a binary tree node.
+    * function TreeNode(val, left, right) {
+    *     this.val = (val===undefined ? 0 : val)
+    *     this.left = (left===undefined ? null : left)
+    *     this.right = (right===undefined ? null : right)
+    * }
+    */
+   /**
+    * @param {TreeNode} root
+    * @return {boolean}
+    */
+   var isBalanced = function(root) {
+       if (root === null) return true;
+       return height(root) !== -1;
+   };
+   
+   let height = function (root) {
+       if (root === null) return 0;
+       let left = height(root.left);
+       let right = height(root.right);
+       if (Math.abs(left - right) > 1 || left === -1 || right === -1) {
+           return -1;
+       } else {
+           return Math.max(left, right) + 1;
+       }
+   }
+   ```
+
+   
 
