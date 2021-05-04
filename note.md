@@ -1142,3 +1142,131 @@ var invertTree = function(root) {
 };
 ```
 
+
+
+##### [112. 路径总和](https://leetcode-cn.com/problems/path-sum/)
+
+难度简单
+
+给你二叉树的根节点 `root` 和一个表示目标和的整数 `targetSum` ，判断该树中是否存在 **根节点到叶子节点** 的路径，这条路径上所有节点值相加等于目标和 `targetSum` 。
+
+**叶子节点** 是指没有子节点的节点。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2021/01/18/pathsum1.jpg)
+
+```
+输入：root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22
+输出：true
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2021/01/18/pathsum2.jpg)
+
+```
+输入：root = [1,2,3], targetSum = 5
+输出：false
+```
+
+**示例 3：**
+
+```
+输入：root = [1,2], targetSum = 0
+输出：false
+```
+
+ 
+
+**提示：**
+
+- 树中节点的数目在范围 `[0, 5000]` 内
+- `-1000 <= Node.val <= 1000`
+- `-1000 <= targetSum <= 1000`
+
+
+
+**思路**
+
+	1. 广度优先，使用两个队列，将节点以及节点值分别放入两个队列。出队时，记录当前出队的值，以及左右节点。将出队的左右节点，以及左右节点和出队节点的值相加后放入队列。可以保证当前的入队的节点的值是确定的。不断的出队入队至队列为空。
+ 	2. 递归实现。从根节点到叶子节点的和为sum,那么当前节点到叶子节点的和为`sum-val`。如果当前节点是叶子节点。那么`val === sum`。
+
+
+
+**code**
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} targetSum
+ * @return {boolean}
+ */
+var hasPathSum = function(root, targetSum) {
+    if (root === null) return false;
+    let queNode = [root];
+    let queVal = [root.val];
+    let sum = 0;
+
+    while(queNode.length !== 0) {
+        let temp = queNode.shift();
+        let curVal = queVal.shift();
+        if (temp.left === null && temp.right === null) {
+            if (curVal === targetSum) {
+                return true;
+            }
+            // 到这里其实还没有遍历结束.队列不一定为空
+            continue;
+            // return false;
+        }
+        if (temp.left !== null) {
+            queNode.push(temp.left);
+            queVal.push(curVal + temp.left.val);
+        }
+        if (temp.right !== null) {
+            queNode.push(temp.right);
+            queVal.push(curVal + temp.right.val);
+        }
+    }
+    return false;
+};
+```
+
+
+
+**code**
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} targetSum
+ * @return {boolean}
+ */
+var hasPathSum = function(root, targetSum) {
+    if (root === null) return false;
+    if (root.left === null && root.right === null) {
+        return root.val === targetSum;
+    }
+
+    return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
+};
+```
+
