@@ -815,7 +815,7 @@ var deleteDuplicates = function(head) {
 
 let maxDepth = function(root) {
     if (root === null) return 0;
-    return Math.max(maxDepth(root.left) + maxDepth(root.right)) + 1
+    return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1
 }
 ```
 
@@ -923,22 +923,20 @@ let height = function (root) {
     * @return {boolean}
     */
    var isBalanced = function(root) {
-       if (root === null) return true;
-       return height(root) !== -1;
+       return getDeep(root) !== -1;
    };
    
-   let height = function (root) {
+   let getDeep = function(root) {
        if (root === null) return 0;
-       let left = height(root.left);
-       let right = height(root.right);
-       if (Math.abs(left - right) > 1 || left === -1 || right === -1) {
+       let left = getDeep(root.left);
+       let right = getDeep(root.right);
+       if (Math.abs(left -right) > 1 || left === -1 || right === -1) {
            return -1;
-       } else {
-           return Math.max(left, right) + 1;
        }
+       return Math.max(left, right) + 1;
    }
    ```
-
+   
    
 
 ##### [543. 二叉树的直径](https://leetcode-cn.com/problems/diameter-of-binary-tree/)
@@ -1192,7 +1190,7 @@ var invertTree = function(root) {
 **思路**
 
 	1. 广度优先，使用两个队列，将节点以及节点值分别放入两个队列。出队时，记录当前出队的值，以及左右节点。将出队的左右节点，以及左右节点和出队节点的值相加后放入队列。可以保证当前的入队的节点的值是确定的。不断的出队入队至队列为空。
- 	2. 递归实现。从根节点到叶子节点的和为sum,那么当前节点到叶子节点的和为`sum-val`。如果当前节点是叶子节点。那么`val === sum`。
+	2. 递归实现。从根节点到叶子节点的和为sum,那么当前节点到叶子节点的和为`sum-val`。如果当前节点是叶子节点。那么`val === sum`。
 
 
 
@@ -1267,6 +1265,265 @@ var hasPathSum = function(root, targetSum) {
     }
 
     return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
+};
+```
+
+
+
+
+
+
+
+**code**
+
+1. 
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var mirrorTree = function(root) {
+    if (root === null) return null;
+    let left = mirrorTree(root.left);
+    let right = mirrorTree(root.right);
+    let tmp = left;
+    root.left = right;
+    root.right = tmp;
+    return root;
+};
+```
+
+2. 
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var mirrorTree = function(root) {
+    if (root === null) return null;
+    let stack = [root];
+    while (stack.length) {
+        let node = stack.pop();
+        if (node.left !== null) {
+            stack.push(node.left);
+        }
+        if (node.right !== null) {
+            stack.push(node.right);
+        } 
+        let temp = node.left;
+        node.left = node.right;
+        node.right = temp;
+    }
+    return root;
+};
+```
+
+
+
+
+
+15.
+
+```
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ * [-4, -3, -2, -1, -1, 0, 0, 1, 2, 3, 4]
+ */
+var threeSum = function(nums) {
+    nums.sort((v1, v2) => v1 -v2)
+    let len = nums.length;
+    let res = [];
+    for (let i = 0; i < len; ++i) {
+        if (i > 0 && nums[i] === nums[i - 1]) {
+            continue;
+        }
+
+        let target = -nums[i];
+        let right = len - 1;
+        for (let left = i + 1; left < len; ++left) {
+            if (left > i + 1 && nums[left] === nums[left - 1]) {
+                continue;
+            }
+
+            while (left < right && nums[left] + nums[right] > target) {
+                right--;
+            }
+
+            if (left === right) {
+                break;
+            }
+
+            if (nums[left] + nums[right] === target) {
+                let temp = [];
+                temp.push(-target);
+                temp.push(nums[left]);
+                temp.push(nums[right]);
+                res.push(temp);
+            }
+        }
+    }
+    return res;
+};
+```
+
+
+
+
+
+70
+
+```js
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = function(n) {
+    let p = 0;
+    let q = 0;
+    let r = 1;
+    for (let i = 1; i <= n; i++) {
+        p = q;
+        q = r;
+        r = p + q;
+    }
+    return r;
+};
+```
+
+
+
+11.
+
+```js
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var maxArea = function(height) {
+    let left = 0;
+    let right = height.length - 1;
+    let maxArea = 0;
+    while (left < right) {
+        let curr = Math.min(height[left], height[right]) * (right - left);
+        maxArea = Math.max(curr, maxArea);
+        if (height[left] <= height[right]) {
+            left++;
+        } else {
+            right--
+        }
+    }
+    return maxArea;
+};
+```
+
+
+
+645
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var findErrorNums = function(nums) {
+    nums.sort((v1, v2) => v1 -v2);
+    let len = nums.length;
+    if (len === 2 && nums[0] === 1) return [nums[0], nums[0] + 1];
+    if (len === 2) return [nums[0], nums[0] - 1];
+    let res = [];
+    for (let i = 0; i < len - 1; i++) {
+        if (nums[i] === nums[i + 1]) {
+            res.push(nums[i]);
+            if (res.length > 1) break;
+        }
+        if (nums[i + 1] - nums[i] > 1) {
+            res.push(nums[i] + 1);
+            if (res.length > 1) break;
+        }
+    }
+    if (res.length === 1) res.push(1);
+    return res;
+};
+```
+
+
+
+
+
+206
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function(head) {
+    if (head === null || head.next === null) return head;
+    let pre = null;
+    let curr = head;
+    while(curr !== null) {
+        let temp = curr.next;
+        curr.next = pre;
+        pre = curr;
+        curr = temp;
+    }
+    return pre;
+};
+```
+
+
+
+141
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var hasCycle = function(head) {
+    // if (head === null && head.next === null) return false;
+    // let temp = head;
+    let set = new Set();
+    while(head !== null) {
+        if (set.has(head)) {
+            return true;
+        }
+        set.add(head);
+        head = head.next;
+    }
+    return false;
 };
 ```
 
