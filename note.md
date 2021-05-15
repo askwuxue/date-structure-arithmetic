@@ -1527,3 +1527,259 @@ var hasCycle = function(head) {
 };
 ```
 
+
+
+
+
+24
+
+1. 
+
+```JS
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var swapPairs = function(head) {
+    if (head === null || head.next === null) return head;
+    let newHead = head.next;
+    head.next = swapPairs(newHead.next);
+    newHead.next = head;
+    return newHead;
+};
+```
+
+2.
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var swapPairs = function(head) {
+    let dummyHead = new ListNode(0);
+    dummyHead.next = head;
+    let temp = dummyHead;
+
+    while (temp.next !== null && temp.next.next !== null) {
+        let head = temp.next;
+        let second = temp.next.next;
+        temp.next = second;
+        head.next = second.next;
+        second.next = head;
+        temp = head;
+    }
+    return dummyHead.next;
+};
+```
+
+
+
+
+
+21
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function(l1, l2) {
+    if (l1 === null) return l2;
+    if (l2 === null) return l1;
+    if (l1.val < l2.val) {
+        l1.next = mergeTwoLists(l1.next, l2);
+        return l1;
+    } else {
+        l2.next = mergeTwoLists(l1, l2.next);
+        return l2;
+    }
+};
+```
+
+
+
+2.
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function(l1, l2) {
+    let prevHead = new ListNode(-1);
+    let prev = prevHead;
+    while (l1 !== null && l2 !== null) {
+        if (l1.val < l2.val) {
+            prev.next = l1;
+            l1 = l1.next;
+        } else {
+            prev.next = l2;
+            l2 = l2.next;
+        }
+        prev = prev.next;
+    }
+
+    prev.next = l1 === null ? l2 : l1;
+
+    return prevHead.next;
+};
+```
+
+
+
+88
+
+```js
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+var merge = function(nums1, m, nums2, n) {
+    nums1.splice(m, nums1.length, ...nums2);
+    nums1.sort((v1, v2) => v1 - v2);
+};
+```
+
+2.
+
+
+
+```js
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+var merge = function(nums1, m, nums2, n) {
+    let p1 = 0; 
+    let p2 = 0;
+    let newArr = new Array(m + n).fill(0);
+    let cur;
+    while (p1 < m || p2 < n) {
+        if (p1 === m) {
+            cur = nums2[p2++];
+        } else if (p2 === n) {
+            cur = nums1[p1++];
+        } else if (nums1[p1] < nums2[p2]) {
+            cur = nums1[p1++];
+        } else {
+            cur = nums2[p2++];
+        }
+        newArr[p1 + p2 - 1] = cur;
+    }
+    let len = newArr.length;
+    for (let i = 0; i < len; i++) {
+        nums1[i] = newArr[i];
+    }
+};
+```
+
+
+
+
+
+189
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var rotate = function(nums, k) {
+    let len = nums.length;
+    let newArr = new Array(len).fill(0);
+    for (let i = 0; i < len; i++) {
+        newArr[(k + i) % len] = nums[i];
+    }
+
+    for (let i = 0 ; i < len; i++) {
+        nums[i] = newArr[i];
+    }
+   
+};
+```
+
+
+
+26
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function(nums) {
+    // let len = nums.length;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === nums[i + 1]) {
+            nums.splice(i, 1);
+            i--;
+        }
+    }
+    return nums.length;
+};
+```
+
+
+
+2.
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function(nums) {
+    let len = nums.length;
+    if (len === 0) return 0;
+    let fast = 1;
+    let slow = 1;
+
+    while (fast < len) {
+        if (nums[fast] !== nums[fast - 1]) {
+            nums[slow] = nums[fast];
+            slow++;
+        }
+        fast++;
+    }
+    return slow;
+};
+```
+
