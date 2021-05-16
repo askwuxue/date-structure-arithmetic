@@ -1993,132 +1993,279 @@ var hasCycle = function(head) {
 
 
 
+#### [21. 合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
 
+难度简单1707收藏分享切换为英文接收动态反馈
 
-21
+将两个升序链表合并为一个新的 **升序** 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2020/10/03/merge_ex1.jpg)
+
+```
+输入：l1 = [1,2,4], l2 = [1,3,4]
+输出：[1,1,2,3,4,4]
+```
+
+**示例 2：**
+
+```
+输入：l1 = [], l2 = []
+输出：[]
+```
+
+**示例 3：**
+
+```
+输入：l1 = [], l2 = [0]
+输出：[0]
+```
+
+ 
+
+**提示：**
+
+- 两个链表的节点数目范围是 `[0, 50]`
+- `-100 <= Node.val <= 100`
+- `l1` 和 `l2` 均按 **非递减顺序** 排列
+
+##### code
+
+1. 递归
 
 ```js
-/**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
- */
-/**
- * @param {ListNode} l1
- * @param {ListNode} l2
- * @return {ListNode}
- */
 var mergeTwoLists = function(l1, l2) {
     if (l1 === null) return l2;
     if (l2 === null) return l1;
-    if (l1.val < l2.val) {
-        l1.next = mergeTwoLists(l1.next, l2);
-        return l1;
-    } else {
-        l2.next = mergeTwoLists(l1, l2.next);
-        return l2;
+    let newHead = new ListNode(0);
+    while (l1 !== null || l2 !== null) {
+        if (l1.val < l2.val) {
+            l1.next = mergeTwoLists(l1.next, l2);
+            return l1;
+        } else {
+            l2.next = mergeTwoLists(l1, l2.next);
+            return l2;
+        }
     }
 };
 ```
 
 
 
-2.
+2. 迭代
 
 ```js
-/**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
- */
-/**
- * @param {ListNode} l1
- * @param {ListNode} l2
- * @return {ListNode}
- */
 var mergeTwoLists = function(l1, l2) {
-    let prevHead = new ListNode(-1);
-    let prev = prevHead;
+    let newHead = new ListNode(0);
+    let cur = newHead;
     while (l1 !== null && l2 !== null) {
         if (l1.val < l2.val) {
-            prev.next = l1;
+            cur.next = l1;
             l1 = l1.next;
         } else {
-            prev.next = l2;
+            cur.next = l2;
             l2 = l2.next;
         }
-        prev = prev.next;
+        cur = cur.next;
     }
-
-    prev.next = l1 === null ? l2 : l1;
-
-    return prevHead.next;
+    cur.next = l1 === null ? l2 : l1;
+    return newHead.next;
 };
 ```
 
 
 
-88
+#### [88. 合并两个有序数组](https://leetcode-cn.com/problems/merge-sorted-array/)
 
-```js
-/**
- * @param {number[]} nums1
- * @param {number} m
- * @param {number[]} nums2
- * @param {number} n
- * @return {void} Do not return anything, modify nums1 in-place instead.
- */
-var merge = function(nums1, m, nums2, n) {
-    nums1.splice(m, nums1.length, ...nums2);
-    nums1.sort((v1, v2) => v1 - v2);
-};
+难度简单
+
+给你两个有序整数数组 `nums1` 和 `nums2`，请你将 `nums2` 合并到 `nums1` 中*，*使 `nums1` 成为一个有序数组。
+
+初始化 `nums1` 和 `nums2` 的元素数量分别为 `m` 和 `n` 。你可以假设 `nums1` 的空间大小等于 `m + n`，这样它就有足够的空间保存来自 `nums2` 的元素。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+输出：[1,2,2,3,5,6]
 ```
 
-2.
+**示例 2：**
 
-
-
-```js
-/**
- * @param {number[]} nums1
- * @param {number} m
- * @param {number[]} nums2
- * @param {number} n
- * @return {void} Do not return anything, modify nums1 in-place instead.
- */
-var merge = function(nums1, m, nums2, n) {
-    let p1 = 0; 
-    let p2 = 0;
-    let newArr = new Array(m + n).fill(0);
-    let cur;
-    while (p1 < m || p2 < n) {
-        if (p1 === m) {
-            cur = nums2[p2++];
-        } else if (p2 === n) {
-            cur = nums1[p1++];
-        } else if (nums1[p1] < nums2[p2]) {
-            cur = nums1[p1++];
-        } else {
-            cur = nums2[p2++];
-        }
-        newArr[p1 + p2 - 1] = cur;
-    }
-    let len = newArr.length;
-    for (let i = 0; i < len; i++) {
-        nums1[i] = newArr[i];
-    }
-};
+```
+输入：nums1 = [1], m = 1, nums2 = [], n = 0
+输出：[1]
 ```
 
+ 
+
+**提示：**
+
+- `nums1.length == m + n`
+- `nums2.length == n`
+- `0 <= m, n <= 200`
+- `1 <= m + n <= 200`
+- `-109 <= nums1[i], nums2[i] <= 109`
 
 
 
+##### code
 
-189
+1. 使用排序
+
+   ```js
+   var merge = function(nums1, m, nums2, n) {
+       nums1.splice(m, nums1.length, ...nums2);
+       nums1.sort((v1, v2) => v1 -v2);
+   };
+   ```
+
+2. 双指针。 
+
+   ```js
+   var merge = function(nums1, m, nums2, n) {
+       let p1 = 0;
+       let p2 = 0;
+       let cur;
+       let newArr = new Array(m + n).fill(0);
+       while (p1 < m || p2 < n) {
+           if (p1 === m) {
+               cur = nums2[p2++];
+           } else if (p2 === n) {
+               cur = nums1[p1++]
+           } else if (nums1[p1] < nums2[p2]) {
+               cur = nums1[p1++]
+           } else {
+               cur = nums2[p2++];
+           }
+           newArr[p1 + p2 - 1] = cur;
+       }
+       for (let i = 0; i < m + n; i++) {
+           nums1[i] = newArr[i];
+       }
+   };
+   ```
+
+   
+
+#### [1. 两数之和](https://leetcode-cn.com/problems/two-sum/)
+
+难度简单11075收藏分享切换为英文接收动态反馈
+
+给定一个整数数组 `nums` 和一个整数目标值 `target`，请你在该数组中找出 **和为目标值** 的那 **两个** 整数，并返回它们的数组下标。
+
+你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。
+
+你可以按任意顺序返回答案。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [2,7,11,15], target = 9
+输出：[0,1]
+解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。
+```
+
+**示例 2：**
+
+```
+输入：nums = [3,2,4], target = 6
+输出：[1,2]
+```
+
+**示例 3：**
+
+```
+输入：nums = [3,3], target = 6
+输出：[0,1]
+```
+
+ 
+
+**提示：**
+
+- `2 <= nums.length <= 103`
+- `-109 <= nums[i] <= 109`
+- `-109 <= target <= 109`
+- **只会存在一个有效答案**
+
+
+
+##### code
+
+1. Map
+
+   ```js
+   var twoSum = function(nums, target) {
+       let map = new Map();
+       let len = nums.length;
+       for (let i = 0; i < len; i++) {
+           let remain = target - nums[i];
+           if (map.has(remain)) {
+               return [i, map.get(remain)]
+           }
+           map.set(nums[i], i);        
+       }
+       return [];
+   };
+   ```
+
+
+
+#### [189. 旋转数组](https://leetcode-cn.com/problems/rotate-array/)
+
+难度中等964收藏分享切换为英文接收动态反馈
+
+给定一个数组，将数组中的元素向右移动 `k` 个位置，其中 `k` 是非负数。
+
+ 
+
+**进阶：**
+
+- 尽可能想出更多的解决方案，至少有三种不同的方法可以解决这个问题。
+- 你可以使用空间复杂度为 O(1) 的 **原地** 算法解决这个问题吗？
+
+ 
+
+**示例 1:**
+
+```
+输入: nums = [1,2,3,4,5,6,7], k = 3
+输出: [5,6,7,1,2,3,4]
+解释:
+向右旋转 1 步: [7,1,2,3,4,5,6]
+向右旋转 2 步: [6,7,1,2,3,4,5]
+向右旋转 3 步: [5,6,7,1,2,3,4]
+```
+
+**示例 2:**
+
+```
+输入：nums = [-1,-100,3,99], k = 2
+输出：[3,99,-1,-100]
+解释: 
+向右旋转 1 步: [99,-1,-100,3]
+向右旋转 2 步: [3,99,-1,-100]
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 2 * 104`
+- `-231 <= nums[i] <= 231 - 1`
+- `0 <= k <= 105`
+
+##### code
+
+1. 
 
 ```js
 /**
@@ -2132,7 +2279,6 @@ var rotate = function(nums, k) {
     for (let i = 0; i < len; i++) {
         newArr[(k + i) % len] = nums[i];
     }
-
     for (let i = 0 ; i < len; i++) {
         nums[i] = newArr[i];
     }
@@ -2140,30 +2286,42 @@ var rotate = function(nums, k) {
 };
 ```
 
-
-
-26
+2. 翻转数组
 
 ```js
-/**
- * @param {number[]} nums
- * @return {number}
- */
-var removeDuplicates = function(nums) {
-    // let len = nums.length;
-    for (let i = 0; i < nums.length; i++) {
-        if (nums[i] === nums[i + 1]) {
-            nums.splice(i, 1);
-            i--;
-        }
-    }
-    return nums.length;
+var rotate = function(nums, k) {
+    k %= nums.length;
+    reverse(nums, 0, nums.length - 1);
+    reverse(nums, 0, k - 1);
+    reverse(nums, k, nums.length - 1);
 };
+
+const reverse = function(nums, start, end) {
+    while (start < end) {
+        let temp = nums[start];
+        nums[start] = nums[end];
+        nums[end] = temp;
+        start++;
+        end--;
+    }
+}
 ```
 
 
 
-2.
+#### [26. 删除有序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
+
+难度简单
+
+给你一个有序数组 `nums` ，请你**[ 原地](http://baike.baidu.com/item/原地算法)** 删除重复出现的元素，使每个元素 **只出现一次** ，返回删除后数组的新长度。
+
+不要使用额外的数组空间，你必须在 **[原地 ](https://baike.baidu.com/item/原地算法)修改输入数组** 并在使用 O(1) 额外空间的条件下完成。
+
+
+
+##### code
+
+1. 双指针
 
 ```js
 /**
@@ -2173,10 +2331,9 @@ var removeDuplicates = function(nums) {
 var removeDuplicates = function(nums) {
     let len = nums.length;
     if (len === 0) return 0;
-    let fast = 1;
     let slow = 1;
-
-    while (fast < len) {
+    let fast = 1;
+    while(fast < len) {
         if (nums[fast] !== nums[fast - 1]) {
             nums[slow] = nums[fast];
             slow++;
@@ -2187,3 +2344,72 @@ var removeDuplicates = function(nums) {
 };
 ```
 
+
+
+#### [66. 加一](https://leetcode-cn.com/problems/plus-one/)
+
+难度简单687收藏分享切换为英文接收动态反馈
+
+给定一个由 **整数** 组成的 **非空** 数组所表示的非负整数，在该数的基础上加一。
+
+最高位数字存放在数组的首位， 数组中每个元素只存储**单个**数字。
+
+你可以假设除了整数 0 之外，这个整数不会以零开头。
+
+ 
+
+**示例 1：**
+
+```
+输入：digits = [1,2,3]
+输出：[1,2,4]
+解释：输入数组表示数字 123。
+```
+
+**示例 2：**
+
+```
+输入：digits = [4,3,2,1]
+输出：[4,3,2,2]
+解释：输入数组表示数字 4321。
+```
+
+**示例 3：**
+
+```
+输入：digits = [0]
+输出：[1]
+```
+
+ 
+
+**提示：**
+
+- `1 <= digits.length <= 100`
+- `0 <= digits[i] <= 9`
+
+
+
+##### code
+
+1. 倒循环判断。
+
+   ```js
+   var plusOne = function(digits) {
+   
+       let len = digits.length;
+   
+       for (let i = len - 1; i >= 0; i--) {
+               digits[i]++;
+               digits[i] %= 10;
+               if (digits[i] !== 0) return digits
+       }
+       digits = new Array(digits.length + 1).fill(0);
+       digits[0] = 1;
+       return digits;
+   };
+   ```
+
+   
+
+###### 
