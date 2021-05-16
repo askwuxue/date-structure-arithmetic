@@ -511,100 +511,6 @@ var getKthFromEnd = function(head, k) {
 
 
 
-##### [206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)
-
-难度简单1704
-
-给你单链表的头节点 `head` ，请你反转链表，并返回反转后的链表。
-
- 
-
-**示例 1：**
-
-![img](https://assets.leetcode.com/uploads/2021/02/19/rev1ex1.jpg)
-
-```
-输入：head = [1,2,3,4,5]
-输出：[5,4,3,2,1]
-```
-
-**示例 2：**
-
-![img](https://assets.leetcode.com/uploads/2021/02/19/rev1ex2.jpg)
-
-```
-输入：head = [1,2]
-输出：[2,1]
-```
-
-**示例 3：**
-
-```
-输入：head = []
-输出：[]
-```
-
- 
-
-**提示：**
-
-- 链表中节点的数目范围是 `[0, 5000]`
-- `-5000 <= Node.val <= 5000`
-
- 
-
-**进阶：**链表可以选用迭代或递归方式完成反转。你能否用两种方法解决这道题？
-
-
-
-**思路**
-
-需要用一个辅助链表来完成，不能在原先链表上操作。辅助链表随着我们遍历的链表不断变化。当前节点的`next`总是指向辅助链表的头节点。遍历结束，辅助链表也被更新为当前链表的逆序链表。
-
-
-
-**code**
-
-```javascript
-/**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
- */
-/**
- * @param {ListNode} head
- * @return {ListNode}
- */
-var reverseList = function(head) {
-    // 如果链表为空或者只有一个元素
-    if (head === null || head.next === null) {
-        return head;
-    }
-    // 当前的节点
-    var cur = head;
-    // 上一个节点
-    var prev = null;
-    // 临时变量
-    var temp = null;
-    // 双指针 不断的移动cur和prev 用cur影响prev
-    while (cur !== null) {
-        // 临时存当前元素
-        temp = cur.next;
-        // 当前指针指向下一个元素
-        cur.next = prev;
-        // 更新下一个元素
-        prev = cur;
-        // 还原当前元素
-        cur = temp;
-    }
-    return prev;
-};
-```
-
-
-
 ##### [剑指 Offer 06. 从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
 
 难度简单139
@@ -1338,104 +1244,170 @@ var mirrorTree = function(root) {
 
 
 
-15.
+
+
+
+
+
+
+
+
+## 第一周刷题
+
+#### [485. 最大连续 1 的个数](https://leetcode-cn.com/problems/max-consecutive-ones/)
+
+难度简单
+
+给定一个二进制数组， 计算其中最大连续 1 的个数。
+
+ 
+
+**示例：**
 
 ```
+输入：[1,1,0,1,1,1]
+输出：3
+解释：开头的两位和最后的三位都是连续 1 ，所以最大连续 1 的个数是 3.
+```
+
+ 
+
+**提示：**
+
+- 输入的数组只包含 `0` 和 `1` 。
+- 输入数组的长度是正整数，且不超过 10,000。
+
+通过次数106,321
+
+提交次数176,785
+
+
+
+##### 思路
+
+​	题目比较简单，遍历一次数组，遇到1，计数一次。遇到零计数归零。更新1个数的最大值。
+
+##### code
+
+```js
 /**
  * @param {number[]} nums
- * @return {number[][]}
- * [-4, -3, -2, -1, -1, 0, 0, 1, 2, 3, 4]
+ * @return {number}
  */
-var threeSum = function(nums) {
-    nums.sort((v1, v2) => v1 -v2)
+var findMaxConsecutiveOnes = function(nums) {
     let len = nums.length;
-    let res = [];
-    for (let i = 0; i < len; ++i) {
-        if (i > 0 && nums[i] === nums[i - 1]) {
+    let max = 0;
+    let k = 0;
+    for (let i = 0; i < len; i++) {
+        if (nums[i] === 1) {
+            k++;
+            max = Math.max(max, k);
             continue;
         }
-
-        let target = -nums[i];
-        let right = len - 1;
-        for (let left = i + 1; left < len; ++left) {
-            if (left > i + 1 && nums[left] === nums[left - 1]) {
-                continue;
-            }
-
-            while (left < right && nums[left] + nums[right] > target) {
-                right--;
-            }
-
-            if (left === right) {
-                break;
-            }
-
-            if (nums[left] + nums[right] === target) {
-                let temp = [];
-                temp.push(-target);
-                temp.push(nums[left]);
-                temp.push(nums[right]);
-                res.push(temp);
-            }
-        }
+        k = 0;
     }
-    return res;
+    return max;
 };
 ```
 
 
 
+#### [283. 移动零](https://leetcode-cn.com/problems/move-zeroes/)
 
+难度简单1060收藏分享切换为英文接收动态反馈
 
-70
+给定一个数组 `nums`，编写一个函数将所有 `0` 移动到数组的末尾，同时保持非零元素的相对顺序。
 
-```js
-/**
- * @param {number} n
- * @return {number}
- */
-var climbStairs = function(n) {
-    let p = 0;
-    let q = 0;
-    let r = 1;
-    for (let i = 1; i <= n; i++) {
-        p = q;
-        q = r;
-        r = p + q;
-    }
-    return r;
-};
+**示例:**
+
+```
+输入: [0,1,0,3,12]
+输出: [1,3,12,0,0]
 ```
 
+**说明**:
+
+1. 必须在原数组上操作，不能拷贝额外的数组。
+2. 尽量减少操作次数。
+
+通过次数369,449
+
+提交次数579,501
 
 
-11.
+
+##### 思路
+
+​	利用双指针，左指针指向已经排好序的末尾，右指针指向待排的头部。当右指针对应的数不为0，则交换左右指针指针对应的数。左指针的左边全部是非0数，左指针的右边到右指针的左边区间内全部是0。时间复杂度为O（n）。空间复杂度为O（1）
+
+
+
+##### code
 
 ```js
 /**
- * @param {number[]} height
- * @return {number}
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
  */
-var maxArea = function(height) {
+var moveZeroes = function(nums) {
     let left = 0;
-    let right = height.length - 1;
-    let maxArea = 0;
-    while (left < right) {
-        let curr = Math.min(height[left], height[right]) * (right - left);
-        maxArea = Math.max(curr, maxArea);
-        if (height[left] <= height[right]) {
+    let right = 0;
+    let len = nums.length;
+    while (right < len) {
+        if (nums[right]) {
+            let temp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = temp;
             left++;
-        } else {
-            right--
         }
+        right++;
     }
-    return maxArea;
 };
 ```
 
 
 
-645
+#### [645. 错误的集合](https://leetcode-cn.com/problems/set-mismatch/)
+
+难度简单
+
+集合 `s` 包含从 `1` 到 `n` 的整数。不幸的是，因为数据错误，导致集合里面某一个数字复制了成了集合里面的另外一个数字的值，导致集合 **丢失了一个数字** 并且 **有一个数字重复** 。
+
+给定一个数组 `nums` 代表了集合 `S` 发生错误后的结果。
+
+请你找出重复出现的整数，再找到丢失的整数，将它们以数组的形式返回。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [1,2,2,4]
+输出：[2,3]
+```
+
+**示例 2：**
+
+```
+输入：nums = [1,1]
+输出：[1,2]
+```
+
+ 
+
+**提示：**
+
+- `2 <= nums.length <= 104`
+- `1 <= nums[i] <= 104`
+
+##### 思路
+
+	1. 排序后，遍历。找重复的数和缺失的数。需要注意的是边界条件。当缺失的数是1，或者是n的时候。需要特别注意。时间复杂度`O（nlog(n)）`
+	2. 使用Map。遍历，找出重复的和缺失的。时间复杂度O（n）。空间复杂度为O（n）
+
+##### code
+
+1. 
 
 ```js
 /**
@@ -1443,31 +1415,324 @@ var maxArea = function(height) {
  * @return {number[]}
  */
 var findErrorNums = function(nums) {
-    nums.sort((v1, v2) => v1 -v2);
+    nums.sort((v1 ,v2) => v1 - v2);
     let len = nums.length;
-    if (len === 2 && nums[0] === 1) return [nums[0], nums[0] + 1];
-    if (len === 2) return [nums[0], nums[0] - 1];
-    let res = [];
-    for (let i = 0; i < len - 1; i++) {
+    let rep = 0;
+    let miss = 1;
+    for (let i = 0; i < len; i++) {
         if (nums[i] === nums[i + 1]) {
-            res.push(nums[i]);
-            if (res.length > 1) break;
+           rep = nums[i];
         }
         if (nums[i + 1] - nums[i] > 1) {
-            res.push(nums[i] + 1);
-            if (res.length > 1) break;
+            miss = nums[i] + 1;
         }
     }
-    if (res.length === 1) res.push(1);
+    let res = [rep, len !== nums[len - 1] ? len : miss];
     return res;
 };
 ```
 
+2. 
+
+```js
+   /**
+    * @param {number[]} nums
+    * @return {number[]}
+    */
+   var findErrorNums = function(nums) {
+       let len = nums.length;
+       let map = new Map();
+       let rep;
+       let miss;
+       for (let i = 0; i < len; i++) {
+           if (map.has(nums[i])) {
+               map.set(nums[i], 2);
+               rep = nums[i];
+           } else {
+               map.set(nums[i], 1);
+           }
+       }
+       for (let i = 1; i <= len; i++) {
+           if (!map.has(i)) {
+               miss = i;
+               break;
+           }
+       }
+       let res = [rep, miss];
+       return res;
+   };
+```
+
+   
+
+#### [11. 盛最多水的容器](https://leetcode-cn.com/problems/container-with-most-water/)
+
+难度中等2458收藏分享切换为英文接收动态反馈
+
+给你 `n` 个非负整数 `a1，a2，...，a``n`，每个数代表坐标中的一个点 `(i, ai)` 。在坐标内画 `n` 条垂直线，垂直线 `i` 的两个端点分别为 `(i, ai)` 和 `(i, 0)` 。找出其中的两条线，使得它们与 `x` 轴共同构成的容器可以容纳最多的水。
+
+**说明：**你不能倾斜容器。
+
+ 
+
+**示例 1：**
+
+![img](https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/25/question_11.jpg)
+
+```
+输入：[1,8,6,2,5,4,8,3,7]
+输出：49 
+解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。
+```
+
+**示例 2：**
+
+```
+输入：height = [1,1]
+输出：1
+```
+
+**示例 3：**
+
+```
+输入：height = [4,3,2,1,4]
+输出：16
+```
+
+**示例 4：**
+
+```
+输入：height = [1,2,1]
+输出：2
+```
+
+ 
+
+**提示：**
+
+- `n = height.length`
+- `2 <= n <= 3 * 104`
+- `0 <= height[i] <= 3 * 104`
 
 
 
+##### code
 
-206
+1. ​	
+
+   ```js
+   /**
+    * @param {number[]} height
+    * @return {number}
+    */
+   var maxArea = function(height) {
+       let left = 0;
+       let right = height.length - 1;
+       let maxArea = (right - left) * Math.min(height[right], height[left]);
+       while (left < right) {
+           if (height[left] < height[right]) {
+               left++;
+           } else {
+               right--;
+           }
+           let temp = (right - left) * Math.min(height[right], height[left]);
+           maxArea = Math.max(maxArea, temp);
+       }
+       return maxArea;
+   };
+   ```
+
+
+
+#### [15. 三数之和](https://leetcode-cn.com/problems/3sum/)
+
+难度中等
+
+给你一个包含 `n` 个整数的数组 `nums`，判断 `nums` 中是否存在三个元素 *a，b，c ，*使得 *a + b + c =* 0 ？请你找出所有和为 `0` 且不重复的三元组。
+
+**注意：**答案中不可以包含重复的三元组。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [-1,0,1,2,-1,-4]
+输出：[[-1,-1,2],[-1,0,1]]
+```
+
+**示例 2：**
+
+```
+输入：nums = []
+输出：[]
+```
+
+**示例 3：**
+
+```
+输入：nums = [0]
+输出：[]
+```
+
+ 
+
+**提示：**
+
+- `0 <= nums.length <= 3000`
+- `-105 <= nums[i] <= 105`
+
+
+
+##### code
+
+1.  先排序，固定一个数，剩下的两个数按照两数之和的解法求解。
+
+   ```js
+   /**
+    * @param {number[]} nums
+    * @return {number[][]}
+    * [-4, -3, -2, -1, -1, 0, 0, 1, 2, 3, 4]
+    * [-1,0,1,2,-1,-4]
+    * [-4, -1, -1, 0, 1, 2]
+    * [[-1,-1,2],[-1,0,1]]
+    * 
+    */
+   var threeSum = function(nums) {
+       let len = nums.length;
+       if (nums === null || len < 3) return [];
+       nums.sort((v1, v2) => v1 -v2);
+       let res = [];
+       for (let i = 0; i < len; i++) {
+           if (i > 0 && nums[i - 1] === nums[i]) {
+               continue;
+           }
+           let last = len -  1;
+           let target = -nums[i];
+           for (let first = i + 1; first < len - 1; first++) {
+               if (first > i + 1 && nums[first - 1] === nums[first]) {
+                   continue;
+               }
+               while (first < last && nums[first] + nums[last] > target) {
+                   last--;
+               }
+               if (last === first) {
+                   break;
+               }
+               if (nums[first] + nums[last] === target) {
+                   let arr = [-target, nums[first], nums[last]];
+                   res.push(arr);
+               }
+           }
+       }
+       return res;
+   };
+   ```
+
+
+
+#### [70. 爬楼梯](https://leetcode-cn.com/problems/climbing-stairs/)
+
+难度简单1645收藏分享切换为英文接收动态反馈
+
+假设你正在爬楼梯。需要 *n* 阶你才能到达楼顶。
+
+每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+
+**注意：**给定 *n* 是一个正整数。
+
+**示例 1：**
+
+```
+输入： 2
+输出： 2
+解释： 有两种方法可以爬到楼顶。
+1.  1 阶 + 1 阶
+2.  2 阶
+```
+
+**示例 2：**
+
+```
+输入： 3
+输出： 3
+解释： 有三种方法可以爬到楼顶。
+1.  1 阶 + 1 阶 + 1 阶
+2.  1 阶 + 2 阶
+3.  2 阶 + 1 阶
+```
+
+
+
+##### code
+
+1. ​	
+
+   ```js
+   /**
+    * @param {number} n
+    * @return {number}
+    */
+   var climbStairs = function(n) {
+       let [p, q, r] = [0, 0, 1];
+       for (let i = 1; i <= n; i++) {
+           p = q;
+           q = r;
+           r = p + q;
+       }
+       return r;
+   };
+   ```
+
+
+
+#### [206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)
+
+难度简单1704
+
+给你单链表的头节点 `head` ，请你反转链表，并返回反转后的链表。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2021/02/19/rev1ex1.jpg)
+
+```
+输入：head = [1,2,3,4,5]
+输出：[5,4,3,2,1]
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2021/02/19/rev1ex2.jpg)
+
+```
+输入：head = [1,2]
+输出：[2,1]
+```
+
+**示例 3：**
+
+```
+输入：head = []
+输出：[]
+```
+
+ 
+
+**提示：**
+
+- 链表中节点的数目范围是 `[0, 5000]`
+- `-5000 <= Node.val <= 5000`
+
+ 
+
+**进阶：**链表可以选用迭代或递归方式完成反转。你能否用两种方法解决这道题？
+
+
+
+##### code
 
 ```js
 /**
@@ -1494,6 +1759,205 @@ var reverseList = function(head) {
     return pre;
 };
 ```
+
+
+
+#### [24. 两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)
+
+难度中等916收藏分享切换为英文接收动态反馈
+
+给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
+
+**你不能只是单纯的改变节点内部的值**，而是需要实际的进行节点交换。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2020/10/03/swap_ex1.jpg)
+
+```
+输入：head = [1,2,3,4]
+输出：[2,1,4,3]
+```
+
+**示例 2：**
+
+```
+输入：head = []
+输出：[]
+```
+
+**示例 3：**
+
+```
+输入：head = [1]
+输出：[1]
+```
+
+ 
+
+**提示：**
+
+- 链表中节点的数目在范围 `[0, 100]` 内
+- `0 <= Node.val <= 100`
+
+ 
+
+**进阶：**你能在不修改链表节点值的情况下解决这个问题吗?（也就是说，仅修改节点本身。）
+
+
+
+##### code
+
+1. 迭代
+
+   ```js
+   /**
+    * Definition for singly-linked list.
+    * function ListNode(val, next) {
+    *     this.val = (val===undefined ? 0 : val)
+    *     this.next = (next===undefined ? null : next)
+    * }
+    */
+   /**
+    * @param {ListNode} head
+    * @return {ListNode}
+    */
+   var swapPairs = function(head) {
+       let dummyHead = new ListNode(0);
+       dummyHead.next = head;
+       let temp = dummyHead;
+       while (temp.next !== null && temp.next.next) {
+           let node1 = temp.next;
+           let node2 = temp.next.next;
+           temp.next = node2;
+           node1.next = node2.next;
+           node2.next = node1;
+           temp = node1;
+       }
+       return dummyHead.next;
+   };
+   ```
+
+2. 递归
+
+   ```js
+   /**
+    * Definition for singly-linked list.
+    * function ListNode(val, next) {
+    *     this.val = (val===undefined ? 0 : val)
+    *     this.next = (next===undefined ? null : next)
+    * }
+    */
+   /**
+    * @param {ListNode} head
+    * @return {ListNode}
+    */
+   var swapPairs = function(head) {
+       if (head === null || head.next === null) return head;
+       let newHead = head.next;
+       head.next = swapPairs(newHead.next);
+       newHead.next = head;
+       return newHead;
+   };
+   ```
+
+   
+
+#### [141. 环形链表](https://leetcode-cn.com/problems/linked-list-cycle/)
+
+难度简单1064收藏分享切换为英文接收动态反馈
+
+给定一个链表，判断链表中是否有环。
+
+如果链表中有某个节点，可以通过连续跟踪 `next` 指针再次到达，则链表中存在环。 为了表示给定链表中的环，我们使用整数 `pos` 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 `pos` 是 `-1`，则在该链表中没有环。**注意：`pos` 不作为参数进行传递**，仅仅是为了标识链表的实际情况。
+
+如果链表中存在环，则返回 `true` 。 否则，返回 `false` 。
+
+ 
+
+**进阶：**
+
+你能用 *O(1)*（即，常量）内存解决此问题吗？
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist.png)
+
+```
+输入：head = [3,2,0,-4], pos = 1
+输出：true
+解释：链表中有一个环，其尾部连接到第二个节点。
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png)
+
+```
+输入：head = [1,2], pos = 0
+输出：true
+解释：链表中有一个环，其尾部连接到第一个节点。
+```
+
+**示例 3：**
+
+![img](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test3.png)
+
+```
+输入：head = [1], pos = -1
+输出：false
+解释：链表中没有环。
+```
+
+ 
+
+**提示：**
+
+- 链表中节点的数目范围是 `[0, 104]`
+- `-105 <= Node.val <= 105`
+- `pos` 为 `-1` 或者链表中的一个 **有效索引** 。
+
+
+
+##### code
+
+1. Set
+
+   ```js
+   /**
+    * Definition for singly-linked list.
+    * function ListNode(val) {
+    *     this.val = val;
+    *     this.next = null;
+    * }
+    */
+   
+   /**
+    * @param {ListNode} head
+    * @return {boolean}
+    */
+   var hasCycle = function(head) {
+       let set = new Set();
+       while (head !== null) {
+           if (set.has(head)) {
+               return true;
+           }
+           set.add(head);
+           head = head.next;
+       }
+       return false;
+   };
+   ```
+
+2. 快慢指针法
+
+   
+
+
 
 
 
@@ -1524,66 +1988,6 @@ var hasCycle = function(head) {
         head = head.next;
     }
     return false;
-};
-```
-
-
-
-
-
-24
-
-1. 
-
-```JS
-/**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
- */
-/**
- * @param {ListNode} head
- * @return {ListNode}
- */
-var swapPairs = function(head) {
-    if (head === null || head.next === null) return head;
-    let newHead = head.next;
-    head.next = swapPairs(newHead.next);
-    newHead.next = head;
-    return newHead;
-};
-```
-
-2.
-
-```js
-/**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
- */
-/**
- * @param {ListNode} head
- * @return {ListNode}
- */
-var swapPairs = function(head) {
-    let dummyHead = new ListNode(0);
-    dummyHead.next = head;
-    let temp = dummyHead;
-
-    while (temp.next !== null && temp.next.next !== null) {
-        let head = temp.next;
-        let second = temp.next.next;
-        temp.next = second;
-        head.next = second.next;
-        second.next = head;
-        temp = head;
-    }
-    return dummyHead.next;
 };
 ```
 
