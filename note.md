@@ -2412,3 +2412,41 @@ var removeDuplicates = function(nums) {
 
    
 
+
+
+```js
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+    let len = s.length;
+    if (len % 2) return false;
+    let stack = [];
+    for (let i = 0; i < len; i++) {
+        switch(s[i]) {
+            case ')': {
+                if (stack.pop() !== '(') {
+                    return false;
+                }
+                break;
+            }
+            case ']': {
+                if (stack.pop() !== '[') {
+                    return false;
+                }
+                break;
+            }
+            case '}': {
+                if (stack.pop() !== '{') {
+                    return false;
+                }
+                break;
+            }
+            default: stack.push(s[i]);
+        }
+    }
+    return !stack.length;
+};
+```
+
