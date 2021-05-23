@@ -76,7 +76,7 @@ _每学完一个知识点就去 LeetCode 刷对应的题目_
 
 **思路**
 
-​ 利用栈的先进先出的特性，先考虑边界条件，栈内元素为奇数个，直接退出。遇到左括号，入栈。遇到右括号，出栈。出栈的元素和右括号进行匹配。匹配失败则退出。
+ 利用栈的先进先出的特性，先考虑边界条件，栈内元素为奇数个，直接退出。遇到左括号，入栈。遇到右括号，出栈。出栈的元素和右括号进行匹配。匹配失败则退出。
 
 **code**
 
@@ -163,7 +163,7 @@ minStack.getMin();   --> 返回 -2.
 
 **思路**
 
-​ 首先栈的功能全部要实现，在普通栈的基础上，访问最小元素的时间复杂度是 O(n)。所以要其他的方式来访问栈内最小元素。一般来说，用空间换取时间是一种方式。借助最小栈（`minStack`）来实现，最小栈内始终在栈顶放置最小值。使普通栈（`stack`）和最小栈保持同步。最小栈为空，普通栈`push`，也`push`到最小栈。如果普通栈`push`的值小于最小栈的栈顶值，也`push`到最小栈。如果普通栈`push`的值大于最小栈栈顶值，不`push`到最小栈。
+ 首先栈的功能全部要实现，在普通栈的基础上，访问最小元素的时间复杂度是 O(n)。所以要其他的方式来访问栈内最小元素。一般来说，用空间换取时间是一种方式。借助最小栈（`minStack`）来实现，最小栈内始终在栈顶放置最小值。使普通栈（`stack`）和最小栈保持同步。最小栈为空，普通栈`push`，也`push`到最小栈。如果普通栈`push`的值小于最小栈的栈顶值，也`push`到最小栈。如果普通栈`push`的值大于最小栈栈顶值，不`push`到最小栈。
 
 **code**
 
@@ -786,7 +786,7 @@ let height = function (root) {
     var isBalanced = function (root) {
       return getDeep(root) !== -1;
     };
-
+    
     let getDeep = function (root) {
       if (root === null) return 0;
       let left = getDeep(root.left);
@@ -821,7 +821,7 @@ let height = function (root) {
 
 **思路**
 
-​ 经过观察，直径的长度为，以该节点出发，经过的左子树节点和右子树节点的和减去 1。首先，递归求左子树的高度和右子树的高度。然后不断的更新直径的长度：maxLen = L + R + 1。最终直径的长度为 maxLen - 1。
+ 经过观察，直径的长度为，以该节点出发，经过的左子树节点和右子树节点的和减去 1。首先，递归求左子树的高度和右子树的高度。然后不断的更新直径的长度：maxLen = L + R + 1。最终直径的长度为 maxLen - 1。
 
 **code**
 
@@ -889,7 +889,7 @@ var diameterOfBinaryTree = function (root) {
 
 **思路**
 
-​ 深度优先，如果其中一个树为 null，直接返回另一个树。左子树，右子树进行递归。然后结果合并到当前节点上。
+ 深度优先，如果其中一个树为 null，直接返回另一个树。左子树，右子树进行递归。然后结果合并到当前节点上。
 
 **code**
 
@@ -1185,7 +1185,7 @@ var mirrorTree = function (root) {
 
 ##### 思路
 
-​ 题目比较简单，遍历一次数组，遇到 1，计数一次。遇到零计数归零。更新 1 个数的最大值。
+ 题目比较简单，遍历一次数组，遇到 1，计数一次。遇到零计数归零。更新 1 个数的最大值。
 
 ##### code
 
@@ -1234,7 +1234,7 @@ var findMaxConsecutiveOnes = function (nums) {
 
 ##### 思路
 
-​ 利用双指针，左指针指向已经排好序的末尾，右指针指向待排的头部。当右指针对应的数不为 0，则交换左右指针指针对应的数。左指针的左边全部是非 0 数，左指针的右边到右指针的左边区间内全部是 0。时间复杂度为 O（n）。空间复杂度为 O（1）
+ 利用双指针，左指针指向已经排好序的末尾，右指针指向待排的头部。当右指针对应的数不为 0，则交换左右指针指针对应的数。左指针的左边全部是非 0 数，左指针的右边到右指针的左边区间内全部是 0。时间复杂度为 O（n）。空间复杂度为 O（1）
 
 ##### code
 
@@ -1398,7 +1398,7 @@ var findErrorNums = function (nums) {
 
 ##### code
 
-1. ​
+1. 
 
    ```js
    /**
@@ -1534,7 +1534,7 @@ var threeSum = function (nums) {
 
 ##### code
 
-1. ​
+1. 
 
    ```js
    /**
@@ -2184,7 +2184,7 @@ var removeDuplicates = function (nums) {
    ```js
    var plusOne = function (digits) {
      let len = digits.length;
-
+   
      for (let i = len - 1; i >= 0; i--) {
        digits[i]++;
        digits[i] %= 10;
@@ -2385,3 +2385,39 @@ MyStack.prototype.empty = function () {
  * var param_4 = obj.empty()
  */
 ```
+
+
+
+
+
+#### [503. 下一个更大元素 II](https://leetcode-cn.com/problems/next-greater-element-ii/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var nextGreaterElements = function(nums) {
+    let len = nums.length;
+    let stack = [];
+    let res = new Array(len).fill(-1);
+    for (let i = 0; i < 2 * len - 1; i++) {
+        while (stack.length && nums[i % len] > nums[stack[stack.length - 1]]) {
+            res[stack.pop()] = nums[i % len];
+        }
+        stack.push(i % len);
+    }
+    return res;
+};
+```
+
+
+
+
+
+### 切题四件套
+
+1. 和面试官讨论
+2. 想最优解
+3. code
+4. test cases
