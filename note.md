@@ -2484,3 +2484,19 @@ var groupAnagrams = function(strs) {
 };
 ```
 
+
+
+```js
+var groupAnagrams = function(strs) {
+    let map = new Object();
+    for (let key of strs) {
+        const count = new Array(26).fill(0);
+        for (let c of key) {
+            count[c.charCodeAt() - 'a'.charCodeAt()]++;
+        }
+        map[count] ? map[count].push(key) : map[count] = [key];
+    }
+    return Object.values(map);
+};
+```
+
