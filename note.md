@@ -2461,3 +2461,26 @@ var isAnagram = function(s, t) {
 }; 
 ```
 
+
+
+49
+
+```js
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function(strs) {
+    let map = new Map();
+    for (let key of strs) {
+        let arr = Array.from(key);
+        arr.sort();
+        let str = arr.toString();
+        let list = map.get(str) ? map.get(str) : new Array();
+        list.push(key);
+        map.set(str, list);
+    }
+    return Array.from(map.values());
+};
+```
+
