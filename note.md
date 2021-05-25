@@ -2500,3 +2500,56 @@ var groupAnagrams = function(strs) {
 };
 ```
 
+
+
+
+
+#### [128. 最长连续序列](https://leetcode-cn.com/problems/longest-consecutive-sequence/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestConsecutive = function(nums) {
+    let set = new Set(nums);
+    let newArr = [...set];
+    let maxLen = 0;
+    for (let num of newArr) {
+        if (!set.has(num  - 1)) {
+            let currentNum = num;
+            let currentStreak = 1;
+            while (set.has(currentNum + 1)) {
+                currentNum++;
+                currentStreak++
+            }
+            maxLen = Math.max(currentStreak, maxLen);
+        }
+    }
+    return maxLen;
+};
+```
+
+
+
+#### [217. 存在重复元素
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var containsDuplicate = function(nums) {
+    let set = new Set();
+    let len = nums.length;
+    // return !(set.size === nums.length);
+    for (let i = 0; i < len; i++) {
+        if (set.has(nums[i])) {
+            return true;
+        }
+        set.add(nums[i]);
+    }
+    return false;
+};
+```
+
