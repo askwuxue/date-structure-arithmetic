@@ -2553,3 +2553,92 @@ var containsDuplicate = function(nums) {
 };
 ```
 
+
+
+594
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findLHS = function(nums) {
+    let map = new Map();
+    let len = nums.length;
+    let maxLen = 0;
+    for (let i = 0; i < len; i++) {
+        if (map.has(nums[i])) {
+            map.set(nums[i], map.get(nums[i]) + 1);
+        } else {
+            map.set(nums[i], 1);
+        }
+    }
+    for (let num of nums) {
+        if (map.has(num + 1)) {
+            maxLen = Math.max(maxLen, map.get(num) + map.get(num + 1));
+        }
+    }
+    return maxLen;
+};
+```
+
+
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findLHS = function(nums) {
+    let map = new Map();
+    let len = nums.length;
+    let maxLen = 0;
+    for (let i = 0; i < len; i++) {
+        if (map.has(nums[i])) {
+            map.set(nums[i], map.get(nums[i]) + 1);
+        } else {
+            map.set(nums[i], 1);
+        }
+        if (map.has(nums[i] + 1)) {
+            maxLen = Math.max(maxLen, map.get(nums[i]) + map.get(nums[i] + 1));
+        }
+        if (map.has(nums[i] - 1)) {
+            maxLen = Math.max(maxLen, map.get(nums[i]) + map.get(nums[i] - 1));
+        }
+    }
+    return maxLen;
+};
+```
+
+
+
+
+
+#### [42. 接雨水](https://leetcode-cn.com/problems/trapping-rain-water/)
+
+```js
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function(height) {
+    let len = height.length;
+    if (len === 0) return 0;
+    let leftMax = [];
+    leftMax[0] = height[0];
+    for (let i = 1; i < len; i++) {
+        leftMax[i] = Math.max(leftMax[i - 1], height[i]);
+    }
+    let rightMax = [];
+    rightMax[len - 1] = height[len - 1];
+    for (let i = len - 2; i >= 0; i--) {
+        rightMax[i] = Math.max(rightMax[i + 1], height[i]);
+    }
+    let res = 0;
+    for (let i = 0; i < len; i++) {
+        res += Math.min(leftMax[i], rightMax[i]) - height[i];
+    }
+    return res;
+};
+```
+
