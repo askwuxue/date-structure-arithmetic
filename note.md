@@ -14,6 +14,13 @@ _每学完一个知识点就去 LeetCode 刷对应的题目_
 **时间复杂度是多少？空间复杂度是多少**
 **寻求大佬的反馈**
 
+### 切题四件套
+
+1. 和面试官讨论
+2. 想最优解
+3. code
+4. test cases
+
 ## 数据结构
 
 ### 栈
@@ -1158,7 +1165,7 @@ var mirrorTree = function (root) {
 };
 ```
 
-## 第一周刷题
+## 第一周刷题 数组，链表
 
 #### [485. 最大连续 1 的个数](https://leetcode-cn.com/problems/max-consecutive-ones/)
 
@@ -2196,13 +2203,70 @@ var removeDuplicates = function (nums) {
    };
    ```
 
+
+
+## 第二周刷题 栈，队列
+
 #### [20. 有效的括号](https://leetcode-cn.com/problems/valid-parentheses/)
 
+难度简单2427收藏分享切换为英文接收动态反馈
+
+给定一个只包括 `'('`，`')'`，`'{'`，`'}'`，`'['`，`']'` 的字符串 `s` ，判断字符串是否有效。
+
+有效字符串需满足：
+
+1. 左括号必须用相同类型的右括号闭合。
+2. 左括号必须以正确的顺序闭合。
+
+ 
+
+**示例 1：**
+
+```
+输入：s = "()"
+输出：true
+```
+
+**示例 2：**
+
+```
+输入：s = "()[]{}"
+输出：true
+```
+
+**示例 3：**
+
+```
+输入：s = "(]"
+输出：false
+```
+
+**示例 4：**
+
+```
+输入：s = "([)]"
+输出：false
+```
+
+**示例 5：**
+
+```
+输入：s = "{[]}"
+输出：true
+```
+
+ 
+
+**提示：**
+
+- `1 <= s.length <= 104`
+- `s` 仅由括号 `'()[]{}'` 组成
+
+##### code
+
+1. 使用栈匹配
+
 ```js
-/**
- * @param {string} s
- * @return {boolean}
- */
 var isValid = function (s) {
   let len = s.length;
   if (len % 2) return false;
@@ -2235,13 +2299,9 @@ var isValid = function (s) {
 };
 ```
 
-2.
+2. 使用Map进行匹配
 
 ```js
-/**
- * @param {string} s
- * @return {boolean}
- */
 var isValid = function (s) {
   if (s.length % 2) return false;
   const stack = [];
@@ -2265,7 +2325,47 @@ var isValid = function (s) {
 };
 ```
 
-116
+#### [155. 最小栈](https://leetcode-cn.com/problems/min-stack/)
+
+难度简单
+
+设计一个支持 `push` ，`pop` ，`top` 操作，并能在常数时间内检索到最小元素的栈。
+
+- `push(x)` —— 将元素 x 推入栈中。
+- `pop()` —— 删除栈顶的元素。
+- `top()` —— 获取栈顶元素。
+- `getMin()` —— 检索栈中的最小元素。
+
+ 
+
+**示例:**
+
+```
+输入：
+["MinStack","push","push","push","getMin","pop","top","getMin"]
+[[],[-2],[0],[-3],[],[],[],[]]
+
+输出：
+[null,null,null,null,-3,null,0,-2]
+
+解释：
+MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin();   --> 返回 -3.
+minStack.pop();
+minStack.top();      --> 返回 0.
+minStack.getMin();   --> 返回 -2.
+```
+
+ 
+
+**提示：**
+
+- `pop`、`top` 和 `getMin` 操作总是在 **非空栈** 上调用。
+
+##### code
 
 ```js
 /**
@@ -2317,7 +2417,57 @@ MinStack.prototype.getMin = function () {
  */
 ```
 
-225. 用队列实现栈
+
+
+#### [225. 用队列实现栈](https://leetcode-cn.com/problems/implement-stack-using-queues/)
+
+难度简单
+
+请你仅使用两个队列实现一个后入先出（LIFO）的栈，并支持普通队列的全部四种操作（`push`、`top`、`pop` 和 `empty`）。
+
+实现 `MyStack` 类：
+
+- `void push(int x)` 将元素 x 压入栈顶。
+- `int pop()` 移除并返回栈顶元素。
+- `int top()` 返回栈顶元素。
+- `boolean empty()` 如果栈是空的，返回 `true` ；否则，返回 `false` 。
+
+ 
+
+**注意：**
+
+- 你只能使用队列的基本操作 —— 也就是 `push to back`、`peek/pop from front`、`size` 和 `is empty` 这些操作。
+- 你所使用的语言也许不支持队列。 你可以使用 list （列表）或者 deque（双端队列）来模拟一个队列 , 只要是标准的队列操作即可。
+
+ 
+
+**示例：**
+
+```
+输入：
+["MyStack", "push", "push", "top", "pop", "empty"]
+[[], [1], [2], [], [], []]
+输出：
+[null, null, null, 2, 2, false]
+
+解释：
+MyStack myStack = new MyStack();
+myStack.push(1);
+myStack.push(2);
+myStack.top(); // 返回 2
+myStack.pop(); // 返回 2
+myStack.empty(); // 返回 False
+```
+
+ 
+
+**提示：**
+
+- `1 <= x <= 9`
+- 最多调用`100` 次 `push`、`pop`、`top` 和 `empty`
+- 每次调用 `pop` 和 `top` 都保证栈不为空
+
+##### code
 
 ```js
 /**
@@ -2388,9 +2538,27 @@ MyStack.prototype.empty = function () {
 
 
 
-
-
 #### [503. 下一个更大元素 II](https://leetcode-cn.com/problems/next-greater-element-ii/)
+
+难度中等
+
+给定一个循环数组（最后一个元素的下一个元素是数组的第一个元素），输出每个元素的下一个更大元素。数字 x 的下一个更大的元素是按数组遍历顺序，这个数字之后的第一个比它更大的数，这意味着你应该循环地搜索它的下一个更大的数。如果不存在，则输出 -1。
+
+**示例 1:**
+
+```
+输入: [1,2,1]
+输出: [2,-1,2]
+解释: 第一个 1 的下一个更大的数是 2；
+数字 2 找不到下一个更大的数； 
+第二个 1 的下一个最大的数需要循环搜索，结果也是 2。
+```
+
+**注意:** 输入数组的长度不会超过 10000。
+
+##### code
+
+1. 单调栈，小于栈顶元素，元素索引入栈。大于栈顶元素，元素索引出栈。
 
 ```js
 /**
@@ -2410,17 +2578,6 @@ var nextGreaterElements = function(nums) {
     return res;
 };
 ```
-
-
-
-
-
-### 切题四件套
-
-1. 和面试官讨论
-2. 想最优解
-3. code
-4. test cases
 
 
 
@@ -2461,9 +2618,195 @@ var isAnagram = function(s, t) {
 }; 
 ```
 
+#### [739. 每日温度](https://leetcode-cn.com/problems/daily-temperatures/)
+
+难度中等
+
+请根据每日 `气温` 列表，重新生成一个列表。对应位置的输出为：要想观测到更高的气温，至少需要等待的天数。如果气温在这之后都不会升高，请在该位置用 `0` 来代替。
+
+例如，给定一个列表 `temperatures = [73, 74, 75, 71, 69, 72, 76, 73]`，你的输出应该是 `[1, 1, 4, 2, 1, 1, 0, 0]`。
+
+**提示：**`气温` 列表长度的范围是 `[1, 30000]`。每个气温的值的均为华氏度，都是在 `[30, 100]` 范围内的整数。
+
+##### code
+
+1. 单调栈。列表值小于栈顶元素，索引值入栈。列表值大于栈顶元素，索引值出栈。
+
+```js
+/**
+ * @param {number[]} temperatures
+ * @return {number[]}
+ */
+var dailyTemperatures = function (temperatures) {
+    let len = temperatures.length;
+    let stack = [];
+    let res = new Array(len).fill(0);
+    for (let i = 0; i < len; i++) {
+        while (stack.length && temperatures[i] > temperatures[stack[stack.length - 1]]) {
+            let index = stack.pop();
+            res[index] = i - index;
+        }
+        stack.push(i);
+    }
+    return res;
+};
+```
 
 
-49
+
+#### [42. 接雨水](https://leetcode-cn.com/problems/trapping-rain-water/)
+
+难度困难2376收藏分享切换为英文接收动态反馈
+
+给定 *n* 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/rainwatertrap.png)
+
+```
+输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]
+输出：6
+解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 
+```
+
+**示例 2：**
+
+```
+输入：height = [4,2,0,3,2,5]
+输出：9
+```
+
+**提示：**
+
+- `n == height.length`
+- `0 <= n <= 3 * 104`
+- `0 <= height[i] <= 105`
+
+
+
+##### code
+
+1. 遍历所有元素，元素左边元素的最大值放入`leftMax`，元素右边最大值元素放入`rightMax`。对`i`元素而言，该元素能接收到的雨水为`leftMax[i]`，`right[i]`的最小值，减去`height[i]`。计算所有`i`能接收到雨水的总和。
+
+```js
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function(height) {
+    let len = height.length;
+    if (len === 0) return 0;
+    let leftMax = [];
+    leftMax[0] = height[0];
+    for (let i = 1; i < len; i++) {
+        leftMax[i] = Math.max(leftMax[i - 1], height[i]);
+    }
+    let rightMax = [];
+    rightMax[len - 1] = height[len - 1];
+    for (let i = len - 2; i >= 0; i--) {
+        rightMax[i] = Math.max(rightMax[i + 1], height[i]);
+    }
+    let res = 0;
+    for (let i = 0; i < len; i++) {
+        res += Math.min(leftMax[i], rightMax[i]) - height[i];
+    }
+    return res;
+};
+```
+
+
+
+## 第三周刷题 哈希表，映射，集合
+
+#### [242. 有效的字母异位词](https://leetcode-cn.com/problems/valid-anagram/)
+
+难度简单
+
+给定两个字符串 *s* 和 *t* ，编写一个函数来判断 *t* 是否是 *s* 的字母异位词。
+
+**示例 1:**
+
+```
+输入: s = "anagram", t = "nagaram"
+输出: true
+```
+
+**示例 2:**
+
+```
+输入: s = "rat", t = "car"
+输出: false
+```
+
+**说明:**
+你可以假设字符串只包含小写字母。
+
+**进阶:**
+如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？
+
+##### code
+
+1. **`codePointAt()`** 方法返回 一个 Unicode 编码点值的非负整数。利用Map，对第一个字符串每一个字符进行统计。另一个字符串对统计的字符串进行减少。如果减少到统计次数小于0.则不是字母异位词。
+
+```js
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isAnagram = function(s, t) {
+    let sLen = s.length;
+    let tLen = t.length;
+    if (sLen !== tLen) return false;
+    let table = new Array(26).fill(0);
+    for (let i = 0; i < sLen; i++) {
+        table[s.codePointAt(i) - 'a'.codePointAt(0)]++;
+    }
+    for (let i = 0; i < tLen; i++) {
+        table[t.codePointAt(i) - 'a'.codePointAt(0)]--;
+        if (table[t.codePointAt(i) - 'a'.codePointAt(0)] < 0) {
+            return false;
+        }
+    }
+    return true;
+};
+```
+
+
+
+#### [49. 字母异位词分组](https://leetcode-cn.com/problems/group-anagrams/)
+
+难度中等
+
+给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。
+
+**示例:**
+
+```
+输入: ["eat", "tea", "tan", "ate", "nat", "bat"]
+输出:
+[
+  ["ate","eat","tea"],
+  ["nat","tan"],
+  ["bat"]
+]
+```
+
+**说明：**
+
+- 所有输入均为小写字母。
+- 不考虑答案输出的顺序。
+
+通过次数193,787
+
+提交次数294,184
+
+##### code
+
+1. 对数组中每一个字符串处理成数组并进行排序。如果是字母异位词，则字符串排序后必然相同。使用Map，排序后的字符串作为键，未进行排序前的字符串作为键，存在一个数组中。最终求`map.values`
 
 ```js
 /**
@@ -2486,6 +2829,8 @@ var groupAnagrams = function(strs) {
 
 
 
+2. `charCodeAt()` 方法返回 `0` 到 `65535` 之间的整数，表示给定索引处的 UTF-16 代码单元。对字符串中每个字符出现次数统计数组作为对象的键，数组为值。数组中存放字母异位词。利用`Object.value`求值。
+
 ```js
 var groupAnagrams = function(strs) {
     let map = new Object();
@@ -2502,37 +2847,42 @@ var groupAnagrams = function(strs) {
 
 
 
+#### [217. 存在重复元素](https://leetcode-cn.com/problems/contains-duplicate/)
 
+难度简单3
 
-#### [128. 最长连续序列](https://leetcode-cn.com/problems/longest-consecutive-sequence/)
+给定一个整数数组，判断是否存在重复元素。
 
-```js
-/**
- * @param {number[]} nums
- * @return {number}
- */
-var longestConsecutive = function(nums) {
-    let set = new Set(nums);
-    let newArr = [...set];
-    let maxLen = 0;
-    for (let num of newArr) {
-        if (!set.has(num  - 1)) {
-            let currentNum = num;
-            let currentStreak = 1;
-            while (set.has(currentNum + 1)) {
-                currentNum++;
-                currentStreak++
-            }
-            maxLen = Math.max(currentStreak, maxLen);
-        }
-    }
-    return maxLen;
-};
+如果存在一值在数组中出现至少两次，函数返回 `true` 。如果数组中每个元素都不相同，则返回 `false` 。
+
+ 
+
+**示例 1:**
+
+```
+输入: [1,2,3,1]
+输出: true
+```
+
+**示例 2:**
+
+```
+输入: [1,2,3,4]
+输出: false
+```
+
+**示例 3:**
+
+```
+输入: [1,1,1,3,3,4,3,2,4,2]
+输出: true
 ```
 
 
 
-#### [217. 存在重复元素
+##### code
+
+1.  利用set去重
 
 ```js
 /**
@@ -2555,7 +2905,50 @@ var containsDuplicate = function(nums) {
 
 
 
-594
+#### [594. 最长和谐子序列](https://leetcode-cn.com/problems/longest-harmonious-subsequence/)
+
+难度简单
+
+和谐数组是指一个数组里元素的最大值和最小值之间的差别 **正好是 `1`** 。
+
+现在，给你一个整数数组 `nums` ，请你在所有可能的子序列中找到最长的和谐子序列的长度。
+
+数组的子序列是一个由数组派生出来的序列，它可以通过删除一些元素或不删除元素、且不改变其余元素的顺序而得到。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [1,3,2,2,5,2,3,7]
+输出：5
+解释：最长的和谐子序列是 [3,2,2,2,3]
+```
+
+**示例 2：**
+
+```
+输入：nums = [1,2,3,4]
+输出：2
+```
+
+**示例 3：**
+
+```
+输入：nums = [1,1,1,1]
+输出：0
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 2 * 104`
+- `-109 <= nums[i] <= 109`
+
+##### code
+
+1. 使用Map，统计元素出现次数。遍历，求每一个元素和该元素加1在Map中出现的次数总和，求和最大值。
 
 ```js
 /**
@@ -2582,7 +2975,7 @@ var findLHS = function(nums) {
 };
 ```
 
-
+2. 和1中思想一致，在每一轮，向Map中统计次数的同时，求当前元素，与左右的数在Map中出现次数的和的最大值。
 
 ```js
 /**
@@ -2612,33 +3005,71 @@ var findLHS = function(nums) {
 
 
 
+#### [128. 最长连续序列](https://leetcode-cn.com/problems/longest-consecutive-sequence/)
 
+难度中等
 
-#### [42. 接雨水](https://leetcode-cn.com/problems/trapping-rain-water/)
+给定一个未排序的整数数组 `nums` ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。
+
+ 
+
+**进阶：**你可以设计并实现时间复杂度为 `O(n)` 的解决方案吗？
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [100,4,200,1,3,2]
+输出：4
+解释：最长数字连续序列是 [1, 2, 3, 4]。它的长度为 4。
+```
+
+**示例 2：**
+
+```
+输入：nums = [0,3,7,2,5,8,4,6,0,1]
+输出：9
+```
+
+ 
+
+**提示：**
+
+- `0 <= nums.length <= 104`
+- `-109 <= nums[i] <= 109`
+
+##### code
+
+1. 利用set进行所有数组元素的存储与去重。找当前数组中的最小值，找到最小值后，依次遍历。直到在set中不存在。此时遍历的长度为最长连续序列的长度。
 
 ```js
 /**
- * @param {number[]} height
+ * @param {number[]} nums
  * @return {number}
  */
-var trap = function(height) {
-    let len = height.length;
-    if (len === 0) return 0;
-    let leftMax = [];
-    leftMax[0] = height[0];
-    for (let i = 1; i < len; i++) {
-        leftMax[i] = Math.max(leftMax[i - 1], height[i]);
+var longestConsecutive = function(nums) {
+    let set = new Set(nums);
+    let newArr = [...set];
+    let maxLen = 0;
+    for (let num of newArr) {
+        if (!set.has(num  - 1)) {
+            let currentNum = num;
+            let currentStreak = 1;
+            while (set.has(currentNum + 1)) {
+                currentNum++;
+                currentStreak++
+            }
+            maxLen = Math.max(currentStreak, maxLen);
+        }
     }
-    let rightMax = [];
-    rightMax[len - 1] = height[len - 1];
-    for (let i = len - 2; i >= 0; i--) {
-        rightMax[i] = Math.max(rightMax[i + 1], height[i]);
-    }
-    let res = 0;
-    for (let i = 0; i < len; i++) {
-        res += Math.min(leftMax[i], rightMax[i]) - height[i];
-    }
-    return res;
+    return maxLen;
 };
 ```
+
+
+
+
+
+
 
