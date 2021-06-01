@@ -3102,3 +3102,288 @@ var longestConsecutive = function(nums) {
 - 右子树上的所有节点的值均大于它的根节点的值
 - 以此类推：左右子树也分别为二叉查找树。
 
+
+
+#### [94. 二叉树的中序遍历](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)
+
+难度简单
+
+给定一个二叉树的根节点 `root` ，返回它的 **中序** 遍历。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2020/09/15/inorder_1.jpg)
+
+```
+输入：root = [1,null,2,3]
+输出：[1,3,2]
+```
+
+**示例 2：**
+
+```
+输入：root = []
+输出：[]
+```
+
+**示例 3：**
+
+```
+输入：root = [1]
+输出：[1]
+```
+
+**示例 4：**
+
+![img](https://assets.leetcode.com/uploads/2020/09/15/inorder_5.jpg)
+
+```
+输入：root = [1,2]
+输出：[2,1]
+```
+
+**示例 5：**
+
+![img](https://assets.leetcode.com/uploads/2020/09/15/inorder_4.jpg)
+
+```
+输入：root = [1,null,2]
+输出：[1,2]
+```
+
+ 
+
+**提示：**
+
+- 树中节点数目在范围 `[0, 100]` 内
+- `-100 <= Node.val <= 100`
+
+ 
+
+**进阶:** 递归算法很简单，你可以通过迭代算法完成吗？
+
+
+
+##### code
+
+1. 递归
+
+```js
+var inorderTraversal = function(root) {
+    const res = new Array();
+    const inorder = (root) => {
+        if (root === null) return;
+        inorder(root.left);
+        res.push(root.val);
+        inorder(root.right);
+    }
+    inorder(root);
+    return res;
+};
+```
+
+2. 迭代
+
+```js
+var inorderTraversal = function(root) {
+    const res = new Array();
+    const stack = new Array();
+    while (root !== null || stack.length !== 0) {
+        while (root !== null) {
+            stack.push(root);
+            root = root.left;
+        }
+        let node = stack.pop();
+        res.push(node.val);
+        root = node.right;
+    }
+    return res;
+};
+```
+
+
+
+#### [144. 二叉树的前序遍历](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/)
+
+难度简单
+
+给你二叉树的根节点 `root` ，返回它节点值的 **前序** 遍历。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2020/09/15/inorder_1.jpg)
+
+```
+输入：root = [1,null,2,3]
+输出：[1,2,3]
+```
+
+**示例 2：**
+
+```
+输入：root = []
+输出：[]
+```
+
+**示例 3：**
+
+```
+输入：root = [1]
+输出：[1]
+```
+
+**示例 4：**
+
+![img](https://assets.leetcode.com/uploads/2020/09/15/inorder_5.jpg)
+
+```
+输入：root = [1,2]
+输出：[1,2]
+```
+
+**示例 5：**
+
+![img](https://assets.leetcode.com/uploads/2020/09/15/inorder_4.jpg)
+
+```
+输入：root = [1,null,2]
+输出：[1,2]
+```
+
+ 
+
+**提示：**
+
+- 树中节点数目在范围 `[0, 100]` 内
+- `-100 <= Node.val <= 100`
+
+ 
+
+**进阶：**递归算法很简单，你可以通过迭代算法完成吗？
+
+
+
+##### code
+
+1. 递归
+
+```js
+var preorderTraversal = function(root) {
+    const res = new Array();
+    const preorder = (root) => {
+        if (root === null) return;
+        res.push(root.val);
+        preorder(root.left);
+        preorder(root.right);
+    }
+    preorder(root);
+    return res;
+};
+```
+
+2. 迭代
+
+```js
+var preorderTraversal = function(root) {
+    const res = new Array();
+    const stack = new Array();
+    while (root !== null || stack.length !== 0) {
+        while (root !== null) {
+            res.push(root.val);
+            stack.push(root);
+            root = root.left;
+        }
+        let node = stack.pop();
+        root = node.right;
+    }
+    return res;
+};
+```
+
+
+
+#### [590. N 叉树的后序遍历](https://leetcode-cn.com/problems/n-ary-tree-postorder-traversal/)
+
+难度简单
+
+给定一个 N 叉树，返回其节点值的 **后序遍历** 。
+
+N 叉树 在输入中按层序遍历进行序列化表示，每组子节点由空值 `null` 分隔（请参见示例）。
+
+ 
+
+**进阶：**
+
+递归法很简单，你可以使用迭代法完成此题吗?
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2018/10/12/narytreeexample.png)
+
+```
+输入：root = [1,null,3,2,4,null,5,6]
+输出：[5,6,3,2,4,1]
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2019/11/08/sample_4_964.png)
+
+```
+输入：root = [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]
+输出：[2,6,14,11,7,3,12,8,4,13,9,10,5,1]
+```
+
+ 
+
+**提示：**
+
+- N 叉树的高度小于或等于 `1000`
+- 节点总数在范围 `[0, 10^4]` 内
+
+##### code
+
+1. 递归
+
+```js
+var postorder = function(root) {
+    const res = new Array();
+    const postorderfun = (root) => {
+        if (root === null) return;
+        for (let i = 0; i < root.children.length; i++) {
+            postorderfun(root.children[i]);
+        }
+        res.push(root.val);
+    }
+    postorderfun(root);
+    return res;
+};
+```
+
+2. 迭代
+
+```js
+var postorder = function(root) {
+    if (root === null) return [];
+    const res = new Array();
+    const stack = new Array();
+    stack.push(root);
+    while (stack.length) {
+        let node = stack.pop()
+        res.push(node.val);
+        for (let i = 0; i < node.children.length; i++) {
+            if (node.children[i] !== null) {
+                stack.push(node.children[i]);
+            }
+        }
+    }
+    return res.reverse();
+};
+```
+
