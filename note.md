@@ -3387,3 +3387,463 @@ var postorder = function(root) {
 };
 ```
 
+
+
+#### LeetCode笔记
+
+https://leetcode-cn.com/problems/n-ary-tree-postorder-traversal/solution/che-di-chi-tou-shu-de-qian-zhong-hou-xu-di-gui-fa-/
+
+
+
+#### [589. N 叉树的前序遍历](https://leetcode-cn.com/problems/n-ary-tree-preorder-traversal/)
+
+难度简单162收藏分享切换为英文接收动态反馈
+
+给定一个 N 叉树，返回其节点值的 **前序遍历** 。
+
+N 叉树 在输入中按层序遍历进行序列化表示，每组子节点由空值 `null` 分隔（请参见示例）。
+
+ 
+
+**进阶：**
+
+递归法很简单，你可以使用迭代法完成此题吗?
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2018/10/12/narytreeexample.png)
+
+```
+输入：root = [1,null,3,2,4,null,5,6]
+输出：[1,3,5,6,2,4]
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2019/11/08/sample_4_964.png)
+
+```
+输入：root = [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]
+输出：[1,2,3,6,7,11,14,4,8,12,5,9,13,10]
+```
+
+ 
+
+**提示：**
+
+- N 叉树的高度小于或等于 `1000`
+- 节点总数在范围 `[0, 10^4]` 内
+
+##### code
+
+1. 递归
+
+```js
+var preorder = function(root) {
+    const res = new Array();
+    if (root === null) return res;
+    const preorderRecursion = (root) => {
+        if (root === null) return;
+        res.push(root.val);
+        for (let i = 0; i < root.children.length; i++) {
+            if (root.children[i] !== null) {
+                preorderRecursion(root.children[i]);
+            }
+        }
+    }
+    preorderRecursion(root);
+    return res;
+};
+```
+
+2. 迭代
+
+```js
+var preorder = function(root) {
+    const res = new Array();
+    const stack = new Array();
+    if (root === null) return res;
+    stack.push(root);
+    while (stack.length) {
+        let node = stack.pop();
+        res.push(node.val);
+        for (let i = node.children.length - 1; i >= 0; i--) {
+            if (node.children[i] !== null) {
+                stack.push(node.children[i]);
+            }
+        }
+    }
+    return res;
+};
+```
+
+
+
+#### [104. 二叉树的最大深度](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)
+
+难度简单886收藏分享切换为英文接收动态反馈
+
+给定一个二叉树，找出其最大深度。
+
+二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+
+**说明:** 叶子节点是指没有子节点的节点。
+
+**示例：**
+给定二叉树 `[3,9,20,null,null,15,7]`，
+
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+
+返回它的最大深度 3 。
+
+##### code
+
+1. 递归-深度优先
+
+```js
+let maxDepth = function(root) {
+    if (root === null)  return 0;
+    const height = (root) => {
+        if (root === null) return 0;
+        return Math.max(height(root.left), height(root.right)) + 1;
+    }
+    return height(root);
+}
+```
+
+2. 迭代-广度优先
+
+```js
+let maxDepth = function(root) {
+    let res = 0;
+    const queue = new Array();
+    if (root === null)  return res;
+    queue.push(root);
+    while (queue.length) {
+        let count = queue.length;
+        while (count > 0) {
+            let node = queue.shift();
+            if (node.left) queue.push(node.left);
+            if (node.right) queue.push(node.right);
+            count -= 1;
+        }
+        res += 1;
+    }
+    return res;
+}
+```
+
+
+
+#### [110. 平衡二叉树](https://leetcode-cn.com/problems/balanced-binary-tree/)
+
+难度简单692收藏分享切换为英文接收动态反馈
+
+给定一个二叉树，判断它是否是高度平衡的二叉树。
+
+本题中，一棵高度平衡二叉树定义为：
+
+> 一个二叉树*每个节点* 的左右两个子树的高度差的绝对值不超过 1 。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2020/10/06/balance_1.jpg)
+
+```
+输入：root = [3,9,20,null,null,15,7]
+输出：true
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2020/10/06/balance_2.jpg)
+
+```
+输入：root = [1,2,2,3,3,null,null,4,4]
+输出：false
+```
+
+**示例 3：**
+
+```
+输入：root = []
+输出：true
+```
+
+ 
+
+**提示：**
+
+- 树中的节点数在范围 `[0, 5000]` 内
+- `-104 <= Node.val <= 104`
+
+##### code
+
+1. 自顶向下
+
+```js
+var isBalanced = function(root) {
+    if (root === null) return true;
+    const height = (root) => {
+        if (root === null) return 0;
+        return Math.max(height(root.left), height(root.right)) + 1;
+    }
+    return isBalanced(root.left) && isBalanced(root.right) && Math.abs(height(root.left) - height(root.right)) <= 1;
+};
+```
+
+2. 自底向上
+
+```js
+var isBalanced = function(root) {
+    if (root === null) return true;
+    const height = (root) => {
+        if (root === null) return 0;
+        let left = height(root.left);
+        let right = height(root.right);
+        if (left === -1 || right === -1 || Math.abs(left - right) > 1) {
+            return -1;
+        } else {
+            return Math.max(height(root.left), height(root.right)) + 1;
+        }
+    }
+    return height(root) >= 0
+};
+```
+
+
+
+#### [543. 二叉树的直径](https://leetcode-cn.com/problems/diameter-of-binary-tree/)
+
+难度简单
+
+给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过也可能不穿过根结点。
+
+ 
+
+**示例 :**
+给定二叉树
+
+```
+          1
+         / \
+        2   3
+       / \     
+      4   5    
+```
+
+返回 **3**, 它的长度是路径 [4,2,1,3] 或者 [5,2,1,3]。
+
+ 
+
+**注意：**两结点之间的路径长度是以它们之间边的数目表示。
+
+**思路：**对某一个节点来说，直径等于左右子节点的最大值的和加1。
+
+##### code
+
+```js
+var diameterOfBinaryTree = function(root) {
+    if (root === null) return 0;
+    let res = 1;
+    const height = function(root) {
+        if (root === null) return 0;
+        let left = height(root.left);
+        let right = height(root.right);
+        res = Math.max(res, left + right + 1);
+        return Math.max(left, right) + 1;
+    }
+    height(root);
+    return res - 1;
+};
+```
+
+
+
+翻转一棵二叉树。
+
+示例：
+
+输入：
+
+     4
+   /   \
+  2     7
+ / \   / \
+1   3 6   9
+输出：
+
+     4
+   /   \
+  7     2
+ / \   / \
+9   6 3   1
+备注:
+这个问题是受到 Max Howell 的 原问题 启发的 ：
+
+谷歌：我们90％的工程师使用您编写的软件(Homebrew)，但是您却无法在面试时在白板上写出翻转二叉树这道题，这太糟糕了。
+
+##### code
+
+1. 深度优先-递归
+
+```js
+var invertTree = function(root) {
+    if (root === null) return root;
+    let left = invertTree(root.left);
+    let right = invertTree(root.right);
+    root.left = right
+    root.right = left;
+    return root
+};
+```
+
+
+
+#### [617. 合并二叉树](https://leetcode-cn.com/problems/merge-two-binary-trees/)
+
+难度简单
+
+给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。
+
+你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，否则**不为** NULL 的节点将直接作为新二叉树的节点。
+
+**示例 1:**
+
+```
+输入: 
+	Tree 1                     Tree 2                  
+          1                         2                             
+         / \                       / \                            
+        3   2                     1   3                        
+       /                           \   \                      
+      5                             4   7                  
+输出: 
+合并后的树:
+	     3
+	    / \
+	   4   5
+	  / \   \ 
+	 5   4   7
+```
+
+**注意:** 合并必须从两个树的根节点开始。
+
+
+
+##### code
+
+1. 深度优先
+
+```js
+var mergeTrees = function(root1, root2) {
+    if (root1 === null) return root2;
+    if (root2 === null) return root1;
+    let newHeader = new TreeNode(root1.val + root2.val);
+    newHeader.left = mergeTrees(root1.left, root2.left);
+    newHeader.right = mergeTrees(root1.right, root2.right);
+    return newHeader;
+};
+```
+
+2. 广度优先-迭代
+
+```js
+var mergeTrees = function(root1, root2) {
+    if (root1 === null) return root2;
+    if (root2 === null) return root1;
+    const queue = new Array();
+    queue.push(root1);
+    queue.push(root2);
+    while (queue.length) {
+        let root1 = queue.shift();
+        let root2 = queue.shift();
+        root1.val += root2.val;
+        if (root1.left !== null && root2.left !== null) {
+            queue.push(root1.left);
+            queue.push(root2.left);
+        } else if (root1.left === null) {
+            root1.left = root2.left;
+        }
+        if (root1.right !== null && root2.right !== null) {
+            queue.push(root1.right);
+            queue.push(root2.right);
+        } else if (root1.right === null) {
+            root1.right = root2.right;
+        }
+    }
+    return root1;
+};
+```
+
+
+
+#### [112. 路径总和](https://leetcode-cn.com/problems/path-sum/)
+
+难度简单
+
+给你二叉树的根节点 `root` 和一个表示目标和的整数 `targetSum` ，判断该树中是否存在 **根节点到叶子节点** 的路径，这条路径上所有节点值相加等于目标和 `targetSum` 。
+
+**叶子节点** 是指没有子节点的节点。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2021/01/18/pathsum1.jpg)
+
+```
+输入：root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22
+输出：true
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2021/01/18/pathsum2.jpg)
+
+```
+输入：root = [1,2,3], targetSum = 5
+输出：false
+```
+
+**示例 3：**
+
+```
+输入：root = [1,2], targetSum = 0
+输出：false
+```
+
+ 
+
+**提示：**
+
+- 树中节点的数目在范围 `[0, 5000]` 内
+- `-1000 <= Node.val <= 1000`
+- `-1000 <= targetSum <= 1000`
+
+
+
+##### code
+
+1. 递归
+
+```js
+var hasPathSum = function(root, targetSum) {
+    if (root === null) return false;
+    if (root.left === null && root.right === null) {
+        return targetSum === root.val;
+    }
+    return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
+};
+```
+
