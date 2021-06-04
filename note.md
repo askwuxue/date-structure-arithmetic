@@ -3847,3 +3847,131 @@ var hasPathSum = function(root, targetSum) {
 };
 ```
 
+
+
+#### [572. 另一个树的子树](https://leetcode-cn.com/problems/subtree-of-another-tree/)
+
+难度简单
+
+给定两个非空二叉树 **s** 和 **t**，检验 **s** 中是否包含和 **t** 具有相同结构和节点值的子树。**s** 的一个子树包括 **s** 的一个节点和这个节点的所有子孙。**s** 也可以看做它自身的一棵子树。
+
+**示例 1:**
+给定的树 s:
+
+```
+     3
+    / \
+   4   5
+  / \
+ 1   2
+```
+
+给定的树 t：
+
+```
+   4 
+  / \
+ 1   2
+```
+
+返回 **true**，因为 t 与 s 的一个子树拥有相同的结构和节点值。
+
+**示例 2:**
+给定的树 s：
+
+```
+     3
+    / \
+   4   5
+  / \
+ 1   2
+    /
+   0
+```
+
+给定的树 t：
+
+```
+   4
+  / \
+ 1   2
+```
+
+返回 **false**。
+
+
+
+##### code
+
+1. 深度优先
+
+```js
+var isSubtree = function(root, subRoot) {
+    if (root === null) return false;
+    const check = function (root, subRoot) {
+        if (root === null && subRoot === null) return true;
+        if (root === null || subRoot === null || root.val !== subRoot.val) return false;
+        return check(root.left, subRoot.left) && check(root.right, subRoot.right);
+    }
+    return check(root, subRoot) || isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+};
+```
+
+
+
+#### [101. 对称二叉树](https://leetcode-cn.com/problems/symmetric-tree/)
+
+难度简单
+
+给定一个二叉树，检查它是否是镜像对称的。
+
+ 
+
+例如，二叉树 `[1,2,2,3,4,4,3]` 是对称的。
+
+```
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
+```
+
+ 
+
+但是下面这个 `[1,2,2,null,3,null,3]` 则不是镜像对称的:
+
+```
+    1
+   / \
+  2   2
+   \   \
+   3    3
+```
+
+ 
+
+**进阶：**
+
+你可以运用递归和迭代两种方法解决这个问题吗？
+
+##### code
+
+1. 递归
+
+```js
+var isSymmetric = function(root) {
+    if (root === null) return true;
+    const check = function(leftRoot, rightRoot) {
+        if (leftRoot === null && rightRoot === null) {
+            return true;
+        }
+        if (leftRoot === null || rightRoot === null || leftRoot.val !== rightRoot.val) {
+            return false;
+        }
+        return leftRoot.val === rightRoot.val && check(leftRoot.left, rightRoot.right) && check(rightRoot.left, leftRoot.right);
+    }
+    return check(root.left, root.right);
+};
+```
+
