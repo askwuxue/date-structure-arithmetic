@@ -3306,6 +3306,70 @@ var preorderTraversal = function(root) {
 
 
 
+#### [145. 二叉树的后序遍历](https://leetcode-cn.com/problems/binary-tree-postorder-traversal/)
+
+难度简单601收藏分享切换为英文接收动态反馈
+
+给定一个二叉树，返回它的 *后序* 遍历。
+
+**示例:**
+
+```
+输入: [1,null,2,3]  
+   1
+    \
+     2
+    /
+   3 
+
+输出: [3,2,1]
+```
+
+**进阶:** 递归算法很简单，你可以通过迭代算法完成吗？
+
+##### code
+
+1. 递归
+
+```js
+var postorderTraversal = function(root) {
+    const res = new Array();
+    if (root === null) return res;
+    const postorder = (root) => {
+        if (root === null) return;
+        postorder(root.left);
+        postorder(root.right);
+        res.push(root.val);
+    }
+    postorder(root);
+    return res;
+};
+```
+
+2. 迭代
+
+```js
+var postorderTraversal = function(root) {
+    const stack = new Array();
+    const res = new Array();
+    if (root === null) return stack;
+    stack.push(root);
+    while(stack.length) {
+        let node = stack.pop();
+        res.push(node.val);
+        if (node.left !== null) {
+            stack.push(node.left);
+        }
+        if (node.right !== null) {
+            stack.push(node.right);
+        }
+    }
+    return res.reverse();
+};
+```
+
+
+
 #### [590. N 叉树的后序遍历](https://leetcode-cn.com/problems/n-ary-tree-postorder-traversal/)
 
 难度简单
@@ -3974,4 +4038,104 @@ var isSymmetric = function(root) {
     return check(root.left, root.right);
 };
 ```
+
+2. 迭代
+
+```js
+var isSymmetric = function(root) {
+    const queue = new Array();
+    if (root === null) return true;
+    queue.push(root.left);
+    queue.push(root.right);
+    while(queue.length) {
+        let left = queue.shift();
+        let right = queue.shift();
+        if (left === null && right === null) continue;
+        if (left === null || right === null || left.val !== right.val) return false;
+        queue.push(left.left);
+        queue.push(right.right);
+
+        queue.push(left.right);
+        queue.push(right.left);
+    }
+    return true;
+};
+```
+
+
+
+#### [404. 左叶子之和](https://leetcode-cn.com/problems/sum-of-left-leaves/)
+
+难度简单
+
+计算给定二叉树的所有左叶子之和。
+
+**示例：**
+
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+
+在这个二叉树中，有两个左叶子，分别是 9 和 15，所以返回 24
+```
+
+#####  code
+
+1. 深度优先
+
+```js
+var sumOfLeftLeaves = function(root) {
+    let res = 0;
+    if (root === null) return 0;
+    const isLeftLeaves = root => {
+        return root.left === null && root.right === null;
+    }
+    if (root.left !== null) {
+        res += isLeftLeaves(root.left) ? root.left.val : sumOfLeftLeaves(root.left);
+    }
+    if (root.right !== null) {
+        res += isLeftLeaves(root.right) ? 0 : sumOfLeftLeaves(root.right);
+    }
+    return res;    
+};
+```
+
+
+
+2. 广度优先
+
+```js
+var sumOfLeftLeaves = function(root) {
+    if (root === null) return 0;
+    const queue = new Array();
+    queue.push(root);
+    const isLeftLeaves = (root) => {
+        return root.left === null && root.right === null;
+    }
+    let res = 0;
+    while(queue.length) {
+        let node = queue.pop();
+        if (node.left) {
+            if (isLeftLeaves(node.left)) {
+                res += node.left.val;
+            } else {
+                queue.push(node.left);
+            }
+        }
+        if (node.right) {
+            if (!isLeftLeaves(node.right)) {
+                queue.push(node.right);
+            }
+        }
+    }
+    return res;
+};
+```
+
+
+
+
 
