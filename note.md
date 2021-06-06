@@ -1510,7 +1510,7 @@ var threeSum = function (nums) {
 
 #### [70. 爬楼梯](https://leetcode-cn.com/problems/climbing-stairs/)
 
-难度简单 1645 收藏分享切换为英文接收动态反馈
+难度简单 
 
 假设你正在爬楼梯。需要 _n_ 阶你才能到达楼顶。
 
@@ -4217,6 +4217,32 @@ var minDepth = function(root) {
         res += 1;
     }
     return res;
+};
+```
+
+
+
+## 第五周 递归
+
+**思维要点**
+
+1. 不要人肉递归
+2. 找最小子问题
+3. 数学归纳法
+
+
+
+70
+
+```js
+var climbStairs = function(n) {
+    let p = 0, q = 0, r = 1;
+    for (let i = 0; i < n; i++) {
+        p = q;
+        q = r;
+        r = p + q;
+    }
+    return r;
 };
 ```
 
