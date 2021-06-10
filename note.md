@@ -4248,3 +4248,289 @@ var climbStairs = function(n) {
 
 
 
+#### [98. 验证二叉搜索树](https://leetcode-cn.com/problems/validate-binary-search-tree/)
+
+难度中等1085收藏分享切换为英文接收动态反馈
+
+给定一个二叉树，判断其是否是一个有效的二叉搜索树。
+
+假设一个二叉搜索树具有如下特征：
+
+- 节点的左子树只包含**小于**当前节点的数。
+- 节点的右子树只包含**大于**当前节点的数。
+- 所有左子树和右子树自身必须也是二叉搜索树。
+
+**示例 1:**
+
+```
+输入:
+    2
+   / \
+  1   3
+输出: true
+```
+
+**示例 2:**
+
+```
+输入:
+    5
+   / \
+  1   4
+     / \
+    3   6
+输出: false
+解释: 输入为: [5,1,4,null,null,3,6]。
+     根节点的值为 5 ，但是其右子节点值为 4 。
+```
+
+通过次数281,550
+
+提交次数819,805
+
+1
+
+```js
+var isValidBST = function(root) {
+    const stack = new Array();
+    const res = new Array();
+    while (root !== null || stack.length !== 0) {
+        while (root !== null) {
+            stack.push(root);
+            root = root.left;
+        }
+        let node = stack.pop();
+        res.push(node.val);
+        root = node.right;
+    }
+    for (let i = 1; i < res.length; i++) {
+        if (res[i] > res[i - 1]) {
+            continue;
+        }
+        return false;
+    }
+    return true;
+};
+```
+
+2.
+
+```js
+var isValidBST = function(root) {
+    let pre = Number.MIN_SAFE_INTEGER;
+    const def = (root) => {
+        if (root === null) return true;
+        if (!def(root.left)) {
+            return false;
+        }
+        if (root.val <= pre) {
+            return false;
+        }
+        pre = root.val;
+        return def(root.right);
+    }
+    return def(root);
+};
+```
+
+3.
+
+```js
+var isValidBST = function(root) {
+    let lower = Number.MIN_SAFE_INTEGER;
+    let upper = Number.MAX_SAFE_INTEGER;
+    const def = (node, lower, upper) => {;
+        if (node === null) return true;
+        if (node.val <= lower || node.val >= upper) {
+            return false;
+        }
+        return def(node.left, lower, node.val) && def(node.right, node.val, upper);
+    }
+    return def(root, lower, upper);
+};
+```
+
+
+
+
+
+#### [236. 二叉树的最近公共祖先](https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/)
+
+难度中等1146收藏分享切换为英文接收动态反馈
+
+给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+
+[百度百科](https://baike.baidu.com/item/最近公共祖先/8918834?fr=aladdin)中最近公共祖先的定义为：“对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（**一个节点也可以是它自己的祖先**）。”
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2018/12/14/binarytree.png)
+
+```
+输入：root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+输出：3
+解释：节点 5 和节点 1 的最近公共祖先是节点 3 。
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2018/12/14/binarytree.png)
+
+```
+输入：root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
+输出：5
+解释：节点 5 和节点 4 的最近公共祖先是节点 5 。因为根据定义最近公共祖先节点可以为节点本身。
+```
+
+**示例 3：**
+
+```
+输入：root = [1,2], p = 1, q = 2
+输出：1
+```
+
+ 
+
+**提示：**
+
+- 树中节点数目在范围 `[2, 105]` 内。
+- `-109 <= Node.val <= 109`
+- 所有 `Node.val` `互不相同` 。
+- `p != q`
+- `p` 和 `q` 均存在于给定的二叉树中。
+
+
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function(root, p, q) {
+    const parent = new Map();
+    const visited = new Set();
+    const generatorParaent = (root) => {
+        if (root.left !== null) {
+            parent.set(root.left.val, root);
+            generatorParaent(root.left);
+        }
+        if (root.right !== null) {
+            parent.set(root.right.val, root);
+            generatorParaent(root.right);
+        }
+    }
+    generatorParaent(root);
+    // p may be is undefined
+    while (p != null) {
+        visited.add(p.val);
+        p = parent.get(p.val);
+    }
+    while (q !== null) {
+        if (visited.has(q.val)) {
+            return q;
+        }
+        q = parent.get(q.val);
+    }
+    return null;
+};
+```
+
+递归
+
+```js
+var lowestCommonAncestor = function(root, p, q) {
+    if (root === null || p === root || q === root) return root;
+    let left = lowestCommonAncestor(root.left, p, q);
+    let right = lowestCommonAncestor(root.right, p, q);
+    if (left === null && right === null) return null;
+    if (left === null) return right;
+    if (right === null) return left;
+    return root;
+};
+```
+
+
+
+
+
+#### [105. 从前序与中序遍历序列构造二叉树](https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+
+难度中等1075收藏分享切换为英文接收动态反馈
+
+根据一棵树的前序遍历与中序遍历构造二叉树。
+
+**注意:**
+你可以假设树中没有重复的元素。
+
+例如，给出
+
+```
+前序遍历 preorder = [3,9,20,15,7]
+中序遍历 inorder = [9,3,15,20,7]
+```
+
+返回如下的二叉树：
+
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {number[]} preorder
+ * @param {number[]} inorder
+ * @return {TreeNode}
+ */
+var buildTree = function(preorder, inorder) {
+    let n = preorder.length;
+    let indexHash = new Map();
+    for (let i = 0; i < n; i++) {
+        indexHash.set(inorder[i], i);
+    }
+
+    const myBuildTree = (preorder, inorder, preorderLeft, preorderRight, inorderLeft, inorderRight) => {
+        if (preorderLeft > preorderRight) {
+            return null;
+        }
+        // 前序遍历第一个节点就是根节点
+        let preorderRoot = preorderLeft;
+        // 找出在中序遍历中的根节点
+        let inorderRoot = indexHash.get(preorder[preorderRoot]);
+        // 创建一个根节点
+        let newRoot = new TreeNode(preorder[preorderRoot]);
+        // 得到左子节点的数量
+        let leftSubTreeSize = inorderRoot - inorderLeft;
+        // 添加左子节点
+        newRoot.left = myBuildTree(preorder, inorder, preorderLeft + 1, preorderLeft + leftSubTreeSize, inorderLeft, inorderRoot - 1);
+        // 添加柚子节点
+        newRoot.right = myBuildTree(preorder, inorder, preorderLeft + leftSubTreeSize + 1, preorderRight, inorderRoot + 1, inorderRight);
+        return newRoot;
+    }
+
+    return myBuildTree(preorder, inorder, 0, n - 1, 0, n - 1);
+};
+```
+
