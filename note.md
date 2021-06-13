@@ -4230,9 +4230,38 @@ var minDepth = function(root) {
 2. 找最小子问题
 3. 数学归纳法
 
+#### [70. 爬楼梯](https://leetcode-cn.com/problems/climbing-stairs/)
 
+难度简单
 
-70
+假设你正在爬楼梯。需要 *n* 阶你才能到达楼顶。
+
+每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+
+**注意：**给定 *n* 是一个正整数。
+
+**示例 1：**
+
+```
+输入： 2
+输出： 2
+解释： 有两种方法可以爬到楼顶。
+1.  1 阶 + 1 阶
+2.  2 阶
+```
+
+**示例 2：**
+
+```
+输入： 3
+输出： 3
+解释： 有三种方法可以爬到楼顶。
+1.  1 阶 + 1 阶 + 1 阶
+2.  1 阶 + 2 阶
+3.  2 阶 + 1 阶
+```
+
+1. 移动数组
 
 ```js
 var climbStairs = function(n) {
@@ -4250,7 +4279,7 @@ var climbStairs = function(n) {
 
 #### [98. 验证二叉搜索树](https://leetcode-cn.com/problems/validate-binary-search-tree/)
 
-难度中等1085收藏分享切换为英文接收动态反馈
+难度中等
 
 给定一个二叉树，判断其是否是一个有效的二叉搜索树。
 
@@ -4284,11 +4313,9 @@ var climbStairs = function(n) {
      根节点的值为 5 ，但是其右子节点值为 4 。
 ```
 
-通过次数281,550
 
-提交次数819,805
 
-1
+1. 中序遍历，中序遍历结果一定是顺序递增的。
 
 ```js
 var isValidBST = function(root) {
@@ -4313,7 +4340,9 @@ var isValidBST = function(root) {
 };
 ```
 
-2.
+
+
+2. 不断的更新左节点的值为最小值，如果小于左节点的值，则非二叉搜索树。
 
 ```js
 var isValidBST = function(root) {
@@ -4333,7 +4362,9 @@ var isValidBST = function(root) {
 };
 ```
 
-3.
+
+
+3.对当前的节点，进行判断，当前的节点小于等于最小值或者大于等于最大值则非二叉搜索树。不断递归。
 
 ```js
 var isValidBST = function(root) {
@@ -4356,7 +4387,7 @@ var isValidBST = function(root) {
 
 #### [236. 二叉树的最近公共祖先](https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/)
 
-难度中等1146收藏分享切换为英文接收动态反馈
+难度中等
 
 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
 
@@ -4401,22 +4432,9 @@ var isValidBST = function(root) {
 - `p != q`
 - `p` 和 `q` 均存在于给定的二叉树中。
 
-
+1. 将二叉树所有节点的值以及该节点对应的父节点放入`HashMap`中。对于p节点，对该节点的值及其在父节点的值放入已访问的集合中。对q节点，如果其值已经在已访问集合中出现。则返回该值，如果未出现，向上找其父节点的值是否在已访问集合中。最终找不到返回null。
 
 ```js
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @param {TreeNode} p
- * @param {TreeNode} q
- * @return {TreeNode}
- */
 var lowestCommonAncestor = function(root, p, q) {
     const parent = new Map();
     const visited = new Set();
@@ -4446,7 +4464,7 @@ var lowestCommonAncestor = function(root, p, q) {
 };
 ```
 
-递归
+2. 递归。
 
 ```js
 var lowestCommonAncestor = function(root, p, q) {
@@ -4466,7 +4484,7 @@ var lowestCommonAncestor = function(root, p, q) {
 
 #### [105. 从前序与中序遍历序列构造二叉树](https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 
-难度中等1075收藏分享切换为英文接收动态反馈
+难度中等
 
 根据一棵树的前序遍历与中序遍历构造二叉树。
 
@@ -4491,19 +4509,6 @@ var lowestCommonAncestor = function(root, p, q) {
 ```
 
 ```js
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
-/**
- * @param {number[]} preorder
- * @param {number[]} inorder
- * @return {TreeNode}
- */
 var buildTree = function(preorder, inorder) {
     let n = preorder.length;
     let indexHash = new Map();
@@ -4531,6 +4536,59 @@ var buildTree = function(preorder, inorder) {
     }
 
     return myBuildTree(preorder, inorder, 0, n - 1, 0, n - 1);
+};
+```
+
+
+
+#### [77. 组合](https://leetcode-cn.com/problems/combinations/)
+
+难度中等
+
+给定两个整数 *n* 和 *k*，返回 1 ... *n* 中所有可能的 *k* 个数的组合。
+
+**示例:**
+
+```
+输入: n = 4, k = 2
+输出:
+[
+  [2,4],
+  [3,4],
+  [2,3],
+  [1,2],
+  [1,3],
+  [1,4],
+]
+```
+
+```js
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number[][]}
+ */
+var combine = function(n, k) {
+    const res = new Array();
+    const path = new Array();
+    const dfs = (n, k, path, begin) => {
+        // 终止条件，找到一个组合
+        if (path.length === k) {
+            // 向一个数组中添加结果数组
+            res.push([...path]);
+            return;
+        }
+        // 循环 剪枝 n - (k - path.length) + 1; n = k - path.length + 1;
+        for(let i = begin; i <= n - (k - path.length) + 1; i++) {
+            path.push(i);
+            dfs(n, k, path, i + 1);
+            // 回溯
+            path.pop();
+        }
+        return res;
+    }
+
+    return dfs(n, k, path, 1);
 };
 ```
 
