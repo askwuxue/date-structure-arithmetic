@@ -4663,3 +4663,75 @@ var permute = function (nums) {
 };
 ```
 
+
+
+#### [47. 全排列 II](https://leetcode-cn.com/problems/permutations-ii/)
+
+难度中等722收藏分享切换为英文接收动态反馈
+
+给定一个可包含重复数字的序列 `nums` ，**按任意顺序** 返回所有不重复的全排列。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [1,1,2]
+输出：
+[[1,1,2],
+ [1,2,1],
+ [2,1,1]]
+```
+
+**示例 2：**
+
+```
+输入：nums = [1,2,3]
+输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 8`
+- `-10 <= nums[i] <= 10`
+
+##### code
+
+1. 回溯
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permuteUnique = function(nums) {
+    const res = new Array();
+    const path = new Array();
+    const used = new Array(nums.length).fill(false);
+    nums.sort((v1, v2) => v1 - v2);
+    const dfs = (nums, res, path, used) => {
+        // console.log('nums: ', nums);
+        if (path.length === nums.length) {
+            res.push([...path]);
+            return;
+        }
+
+        for (let i = 0; i < nums.length; i++) {
+            if (i > 0 && nums[i] === nums[i - 1] && !used[i - 1] || used[i]) {
+                continue;
+            }
+            // 如果path中没有该数，则加入path
+            path.push(nums[i]);
+            used[i] = true;
+            dfs(nums, res, path, used);
+            used[i] = false;
+            path.pop();
+        }
+        return res;
+    }
+    return dfs(nums, res, path, used)
+};
+```
+
