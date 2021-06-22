@@ -4735,3 +4735,120 @@ var permuteUnique = function(nums) {
 };
 ```
 
+#### [50. Pow(x, n)](https://leetcode-cn.com/problems/powx-n/)
+
+难度中等670收藏分享切换为英文接收动态反馈
+
+实现 [pow(*x*, *n*)](https://www.cplusplus.com/reference/valarray/pow/) ，即计算 x 的 n 次幂函数（即，xn）。
+
+ 
+
+**示例 1：**
+
+```
+输入：x = 2.00000, n = 10
+输出：1024.00000
+```
+
+**示例 2：**
+
+```
+输入：x = 2.10000, n = 3
+输出：9.26100
+```
+
+**示例 3：**
+
+```
+输入：x = 2.00000, n = -2
+输出：0.25000
+解释：2-2 = 1/22 = 1/4 = 0.25
+```
+
+ 
+
+**提示：**
+
+- `-100.0 < x < 100.0`
+- `-231 <= n <= 231-1`
+- `-104 <= xn <= 104`
+
+```javascript
+/**
+ * @param {number} x
+ * @param {number} n
+ * @return {number}
+ */
+
+ const dfs = (x, n) => {
+    if (n === 0) return 1;
+    let y = dfs(x , Math.floor(n / 2));
+    return n % 2 === 0 ? y * y : y * y * x;
+}
+
+var myPow = function(x, n) {
+    return n >= 0 ? dfs(x, n) : 1 / dfs(x, -n);
+};
+```
+
+#### [169. 多数元素](https://leetcode-cn.com/problems/majority-element/)
+
+难度简单1032收藏分享切换为英文接收动态反馈
+
+给定一个大小为 *n* 的数组，找到其中的多数元素。多数元素是指在数组中出现次数 **大于** `⌊ n/2 ⌋` 的元素。
+
+你可以假设数组是非空的，并且给定的数组总是存在多数元素。
+
+ 
+
+**示例 1：**
+
+```
+输入：[3,2,3]
+输出：3
+```
+
+**示例 2：**
+
+```
+输入：[2,2,1,1,1,2,2]
+输出：2
+```
+
+ 
+
+**进阶：**
+
+- 尝试设计时间复杂度为 O(n)、空间复杂度为 O(1) 的算法解决此问题。
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement = function(nums) {
+    return majorityElementRec(nums, 0, nums.length - 1);
+};
+
+const majorityElementRec = (nums, le, ri) => {
+    if (le === ri) {
+        return nums[le];
+    }
+    let mid = Math.floor((ri - le) / 2) + le;
+    let left = majorityElementRec(nums, le, mid);
+    let right = majorityElementRec(nums, mid + 1, ri);
+    if (left === right) return left;
+    let leftCount = count(nums, left, le, ri);
+    let rightCount = count(nums, right, le, ri);
+    return leftCount > rightCount ? left : right; 
+}
+
+const count = (nums, num, le, ri) => {
+    let count = 0;
+    for (let i = le; i <= ri; i++) {
+        if (nums[i] === num) count++;
+    }
+    return count;
+}
+```
+
