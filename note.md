@@ -5077,3 +5077,136 @@ var minMutation = function (start, end, bank) {
 };
 ```
 
+
+
+#### [515. 在每个树行中找最大值](https://leetcode-cn.com/problems/find-largest-value-in-each-tree-row/)
+
+难度中等135收藏分享切换为英文接收动态反馈
+
+您需要在二叉树的每一行中找到最大的值。
+
+**示例：**
+
+```
+输入: 
+
+          1
+         / \
+        3   2
+       / \   \  
+      5   3   9 
+
+输出: [1, 3, 9]
+```
+
+
+
+##### code
+
+```js
+var largestValues = function(root) {
+    const res = new Array();
+    if (root === null) return res;
+    const queue = new Array();
+    queue.push(root);
+    while (queue.length > 0) {
+        let size = queue.length;
+        let maxNum = Number.MIN_SAFE_INTEGER;
+        for (let i = 0; i < size; i++) {
+            let node = queue.shift();
+            maxNum = Math.max(maxNum, node.val);
+            if (node.left) queue.push(node.left);
+            if (node.right) queue.push(node.right);
+        }
+        res.push(maxNum);
+    }
+    return res;
+};
+```
+
+
+
+#### [200. 岛屿数量](https://leetcode-cn.com/problems/number-of-islands/)
+
+难度中等1212收藏分享切换为英文接收动态反馈
+
+给你一个由 `'1'`（陆地）和 `'0'`（水）组成的的二维网格，请你计算网格中岛屿的数量。
+
+岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。
+
+此外，你可以假设该网格的四条边均被水包围。
+
+ 
+
+**示例 1：**
+
+```
+输入：grid = [
+  ["1","1","1","1","0"],
+  ["1","1","0","1","0"],
+  ["1","1","0","0","0"],
+  ["0","0","0","0","0"]
+]
+输出：1
+```
+
+**示例 2：**
+
+```
+输入：grid = [
+  ["1","1","0","0","0"],
+  ["1","1","0","0","0"],
+  ["0","0","1","0","0"],
+  ["0","0","0","1","1"]
+]
+输出：3
+```
+
+ 
+
+**提示：**
+
+- `m == grid.length`
+- `n == grid[i].length`
+- `1 <= m, n <= 300`
+- `grid[i][j]` 的值为 `'0'` 或 `'1'`
+
+
+
+##### code
+
+```js
+/**
+ * @param {character[][]} grid
+ * @return {number}
+ */
+var numIslands = function (grid) {
+    const r = grid.length;
+    const c = grid[0].length;
+    if (r === 0) return 0;
+    let total = 0;
+    for (let i = 0; i < r; i++) {
+        for (let j = 0; j < c; j++) {
+            if (grid[i][j] === '1') {
+                ++total;
+                dfs(i, j, grid);
+            }
+        }
+    }
+    return total;
+};
+
+const dfs = (r, c, grid) => {
+    let rLen = grid.length;
+    let cLen = grid[0].length;
+    if (r < 0 || c < 0 || r >= rLen || c >= cLen || grid[r][c] === '0') {
+        return;
+    }
+    grid[r][c] = '0';
+    dfs(r + 1, c, grid);
+    dfs(r - 1, c, grid);
+    dfs(r, c + 1, grid);
+    dfs(r, c - 1, grid);
+};
+```
+
