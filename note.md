@@ -4261,7 +4261,9 @@ var minDepth = function(root) {
 3.  2 阶 + 1 阶
 ```
 
-1. 移动数组
+##### code
+
+3. 移动数组
 
 ```js
 var climbStairs = function(n) {
@@ -4313,9 +4315,9 @@ var climbStairs = function(n) {
      根节点的值为 5 ，但是其右子节点值为 4 。
 ```
 
+##### code
 
-
-1. 中序遍历，中序遍历结果一定是顺序递增的。
+###### 中序遍历，中序遍历结果一定是顺序递增的。
 
 ```js
 var isValidBST = function(root) {
@@ -4342,7 +4344,7 @@ var isValidBST = function(root) {
 
 
 
-2. 不断的更新左节点的值为最小值，如果小于左节点的值，则非二叉搜索树。
+###### 不断的更新左节点的值为最小值，如果小于左节点的值，则非二叉搜索树。
 
 ```js
 var isValidBST = function(root) {
@@ -4364,7 +4366,7 @@ var isValidBST = function(root) {
 
 
 
-3.对当前的节点，进行判断，当前的节点小于等于最小值或者大于等于最大值则非二叉搜索树。不断递归。
+###### 对当前的节点，进行判断，当前的节点小于等于最小值或者大于等于最大值则非二叉搜索树。不断递归。
 
 ```js
 var isValidBST = function(root) {
@@ -4432,7 +4434,13 @@ var isValidBST = function(root) {
 - `p != q`
 - `p` 和 `q` 均存在于给定的二叉树中。
 
+##### **思路**
+
 1. 将二叉树所有节点的值以及该节点对应的父节点放入`HashMap`中。对于p节点，对该节点的值及其在父节点的值放入已访问的集合中。对q节点，如果其值已经在已访问集合中出现。则返回该值，如果未出现，向上找其父节点的值是否在已访问集合中。最终找不到返回null。
+
+##### code
+
+1. 
 
 ```js
 var lowestCommonAncestor = function(root, p, q) {
@@ -4508,6 +4516,10 @@ var lowestCommonAncestor = function(root, p, q) {
    15   7
 ```
 
+
+
+##### code
+
 ```js
 var buildTree = function(preorder, inorder) {
     let n = preorder.length;
@@ -4561,6 +4573,10 @@ var buildTree = function(preorder, inorder) {
   [1,4],
 ]
 ```
+
+
+
+##### code
 
 ```js
 /**
@@ -4667,7 +4683,7 @@ var permute = function (nums) {
 
 #### [47. 全排列 II](https://leetcode-cn.com/problems/permutations-ii/)
 
-难度中等722收藏分享切换为英文接收动态反馈
+难度中等
 
 给定一个可包含重复数字的序列 `nums` ，**按任意顺序** 返回所有不重复的全排列。
 
@@ -4737,7 +4753,7 @@ var permuteUnique = function(nums) {
 
 #### [50. Pow(x, n)](https://leetcode-cn.com/problems/powx-n/)
 
-难度中等670收藏分享切换为英文接收动态反馈
+难度中等
 
 实现 [pow(*x*, *n*)](https://www.cplusplus.com/reference/valarray/pow/) ，即计算 x 的 n 次幂函数（即，xn）。
 
@@ -4773,13 +4789,9 @@ var permuteUnique = function(nums) {
 - `-231 <= n <= 231-1`
 - `-104 <= xn <= 104`
 
-```javascript
-/**
- * @param {number} x
- * @param {number} n
- * @return {number}
- */
+##### code
 
+```javascript
  const dfs = (x, n) => {
     if (n === 0) return 1;
     let y = dfs(x , Math.floor(n / 2));
@@ -4793,7 +4805,7 @@ var myPow = function(x, n) {
 
 #### [169. 多数元素](https://leetcode-cn.com/problems/majority-element/)
 
-难度简单1032收藏分享切换为英文接收动态反馈
+难度简单
 
 给定一个大小为 *n* 的数组，找到其中的多数元素。多数元素是指在数组中出现次数 **大于** `⌊ n/2 ⌋` 的元素。
 
@@ -4821,11 +4833,9 @@ var myPow = function(x, n) {
 
 - 尝试设计时间复杂度为 O(n)、空间复杂度为 O(1) 的算法解决此问题。
 
+##### code
+
 ```js
-/**
- * @param {number[]} nums
- * @return {number}
- */
 var majorityElement = function(nums) {
     return majorityElementRec(nums, 0, nums.length - 1);
 };
@@ -4897,10 +4907,6 @@ const count = (nums, num, le, ri) => {
 ##### code
 
 ```js
-/**
- * @param {string} digits
- * @return {string[]}
- */
 var letterCombinations = function(digits) {
     const combinations = new Array();
     const combination = new Array();
@@ -4993,7 +4999,7 @@ var levelOrder = function(root) {
 
 #### [433. 最小基因变化](https://leetcode-cn.com/problems/minimum-genetic-mutation/)
 
-难度中等78收藏分享切换为英文接收动态反馈
+难度中等
 
 一条基因序列由一个带有8个字符的字符串表示，其中每个字符都属于 `"A"`, `"C"`, `"G"`, `"T"`中的任意一个。
 
@@ -5081,7 +5087,7 @@ var minMutation = function (start, end, bank) {
 
 #### [515. 在每个树行中找最大值](https://leetcode-cn.com/problems/find-largest-value-in-each-tree-row/)
 
-难度中等135收藏分享切换为英文接收动态反馈
+难度中等
 
 您需要在二叉树的每一行中找到最大的值。
 
@@ -5128,7 +5134,7 @@ var largestValues = function(root) {
 
 #### [200. 岛屿数量](https://leetcode-cn.com/problems/number-of-islands/)
 
-难度中等1212收藏分享切换为英文接收动态反馈
+难度中等
 
 给你一个由 `'1'`（陆地）和 `'0'`（水）组成的的二维网格，请你计算网格中岛屿的数量。
 
@@ -5222,7 +5228,7 @@ const dfs = (r, c, grid) => {
 
 #### [55. 跳跃游戏](https://leetcode-cn.com/problems/jump-game/)
 
-难度中等1253收藏分享切换为英文接收动态反馈
+难度中等
 
 给定一个非负整数数组 `nums` ，你最初位于数组的 **第一个下标** 。
 
@@ -5282,7 +5288,7 @@ var canJump = function(nums) {
 
 #### [860. 柠檬水找零](https://leetcode-cn.com/problems/lemonade-change/)
 
-难度简单235收藏分享切换为英文接收动态反馈
+难度简单
 
 在柠檬水摊上，每一杯柠檬水的售价为 `5` 美元。
 
@@ -5382,7 +5388,7 @@ var lemonadeChange = function(bills) {
 
 #### [45. 跳跃游戏 II](https://leetcode-cn.com/problems/jump-game-ii/)
 
-难度中等1048收藏分享切换为英文接收动态反馈
+难度中等
 
 给定一个非负整数数组，你最初位于数组的第一个位置。
 
@@ -5464,6 +5470,71 @@ var jump = function(nums) {
         }
     }
     return steps;
+};
+```
+
+
+
+#### [122. 买卖股票的最佳时机 II](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/)
+
+难度简单
+
+给定一个数组 `prices` ，其中 `prices[i]` 是一支给定股票第 `i` 天的价格。
+
+设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。
+
+**注意：**你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+
+ 
+
+**示例 1:**
+
+```
+输入: prices = [7,1,5,3,6,4]
+输出: 7
+解释: 在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
+     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6-3 = 3 。
+```
+
+**示例 2:**
+
+```
+输入: prices = [1,2,3,4,5]
+输出: 4
+解释: 在第 1 天（股票价格 = 1）的时候买入，在第 5 天 （股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
+     注意你不能在第 1 天和第 2 天接连购买股票，之后再将它们卖出。因为这样属于同时参与了多笔交易，你必须在再次购买前出售掉之前的股票。
+```
+
+**示例 3:**
+
+```
+输入: prices = [7,6,4,3,1]
+输出: 0
+解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
+```
+
+ 
+
+**提示：**
+
+- `1 <= prices.length <= 3 * 104`
+- `0 <= prices[i] <= 104`
+
+##### code
+
+1. 贪心
+
+```js
+var maxProfit = function(prices) {
+    if (prices.length === 1) return 0;
+    let max = 0;
+    let len = prices.length;
+    for (let i = 1; i < len; i++) {
+        if (prices[i] - prices[i - 1] > 0) {
+            max += (prices[i] - prices[i - 1]);
+        }
+    }
+    return max;
 };
 ```
 
