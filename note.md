@@ -285,7 +285,7 @@ class Queue {
 #### 环形队列的实现
 
 环形队列实现的主要思想是，将默认的头指针(front)和尾指针(rear)都初始为 0。rear 总是指向最后一个元素的后一个位置(该位置是预留的一个约定空间)。
-因此，如果队列的 maxSize 为 5，则最大有效数据个数为 4.因此，队列空的条件是：(rear + 1) % maxSize == front; 队列满：rear == front
+因此，如果队列的 maxSize 为 5，则最大有效数据个数为 4.因此，队列满的条件是：(rear + 1) % maxSize == front; 队列空：rear == front
 队列的有效数据个数为: (rear - front + maxSize) % maxSize。
 
 ```java
@@ -312,7 +312,7 @@ class CircleQueue {
         return (end + 1) % maxSize == head;
     }
 
-    // 判断链表是否为空 当头指针等于尾指针 队列已满
+    // 判断链表是否为空
     public boolean isEmpty() {
         return end == head;
     }
@@ -567,13 +567,13 @@ var reversePrint = function (head) {
 var reversePrint = function (head) {
   if (head === null) return [];
   let num = [];
-  const vistor = function (head) {
+  const visitor = function (head) {
     if (head !== null) {
-      vistor(head.next);
+      visitor(head.next);
       num.push(head.val);
     }
   };
-  vistor(head);
+  visitor(head);
   return num;
 };
 ```
@@ -674,18 +674,6 @@ var deleteDuplicates = function (head) {
 **code**
 
 ```js
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number}
- */
 
 let maxDepth = function (root) {
   if (root === null) return 0;
@@ -746,18 +734,7 @@ let maxDepth = function (root) {
 1.
 
 ```js
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {boolean}
- */
+
 var isBalanced = function (root) {
   if (root === null) return true;
   if (
@@ -777,19 +754,9 @@ let height = function (root) {
 };
 ```
 
-2.  ```js
-    /**
-     * Definition for a binary tree node.
-     * function TreeNode(val, left, right) {
-     *     this.val = (val===undefined ? 0 : val)
-     *     this.left = (left===undefined ? null : left)
-     *     this.right = (right===undefined ? null : right)
-     * }
-     */
-    /**
-     * @param {TreeNode} root
-     * @return {boolean}
-     */
+2.  
+```js
+
     var isBalanced = function (root) {
       return getDeep(root) !== -1;
     };
@@ -803,7 +770,7 @@ let height = function (root) {
       }
       return Math.max(left, right) + 1;
     };
-    ```
+```
 
 ##### [543. 二叉树的直径](https://leetcode-cn.com/problems/diameter-of-binary-tree/)
 
@@ -833,20 +800,8 @@ let height = function (root) {
 **code**
 
 ```js
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number}
- */
 
-// maxLen 不能再全局设定值，因为LeetCode每一次会保留全局的值，所以会导致maxLen可能会是上一轮计算的值。
+// maxLen 不能在全局设定值，因为LeetCode每一次会保留全局的值，所以会导致maxLen可能会是上一轮计算的值。
 let maxLen;
 let depth = function (root) {
   if (root === null) return 0;
