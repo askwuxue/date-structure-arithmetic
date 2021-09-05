@@ -1,12 +1,23 @@
-var isAnagram = function (s, t) {
-    if (s.length !== t.length) return false;
-    [].sort();
-    tArr.sort();
-    for (let i = 0; i < s.length; i++) {
-        if (sArr[i] !== tArr[i]) return false;
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+const isAnagram = function(s, t) {
+    let sLen = s.length
+    let tLen = t.length
+    if (sLen !== tLen) {
+        return false
     }
-    return true;
+    let table = new Array(26).fill(0)
+    for (const key of s) {
+        table[key.codePointAt() - 'a'.codePointAt()]++
+    }
+    for (const key of t) {
+        table[key.codePointAt() - 'a'.codePointAt()]--
+        if (table[key.codePointAt() - 'a'.codePointAt()] < 0) {
+            return false
+        }
+    }
+    return true
 };
-let s = "anagram";
-let t = "nagaram";
-isAnagram(s, t);
