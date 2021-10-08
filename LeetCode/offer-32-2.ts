@@ -19,7 +19,6 @@ function levelOrder(root: TreeNode | null): number[][] {
   }
   const queue = [root]
   while (queue.length) {
-    // let size = queue.length
     let child = []
     for (let i = queue.length; i > 0; --i) {
       let node = queue.shift()

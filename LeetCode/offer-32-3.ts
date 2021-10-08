@@ -18,16 +18,17 @@
     return res
   }
   const queue = [root]
-  let flag = true
   while (queue.length) {
     // let size = queue.length
     const child = []
     for (let i = queue.length; i > 0; --i) {
-      let node
-      if (flag) {
-        node = queue.shift()
+      // let size = queue.length
+      let node = queue.shift()
+      // 奇数层
+      if (res.length % 2) {
+        child.unshift(node.val)
       } else {
-        node = queue.pop()
+        child.push(node.val)
       }
       if (node.left) {
         queue.push(node.left)
@@ -35,10 +36,8 @@
       if (node.right) {
         queue.push(node.right)
       }
-      child.push(node.val)
     }
     res.push(child)
-    flag = !flag
   }
   return res
 };
