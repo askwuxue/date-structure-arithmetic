@@ -13,7 +13,20 @@
  */
 
  function isSubStructure(A: TreeNode | null, B: TreeNode | null): boolean {
-  if (A === null || B === null) {
-    return false
+  // if (A === null || B === null) {
+  //   return false
+  // }
+  // 判断B是否为A节点为根节点树的子树，与父函数的A节点不一定是一个A
+  const recur = (A: TreeNode | null, B: TreeNode | null): boolean => {
+    if (B === null) {
+      return true
+    }
+    if (A === null || A.val !== B.val) {
+      return false
+    }
+    return recur(A.left, B.left) && recur(A.right, B.right)
   }
+
+  // 从A树的根节点开始递归
+  return (A !== null && B !== null) && (recur(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B))
 };
