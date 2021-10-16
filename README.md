@@ -1,17 +1,10 @@
-# 这是一个算法相关的仓库
+# LeetCode刷题-手写代码系列
 
-## CUMTOJ 是算法OJ平台的作业
+```bash
+C:.
+├─.idea		 
+├─hand-code  // 手写代码
+├─leetcode   // LeetCode
+└─剑指Offer	// LeetCode的剑指Offer
+```
 
-## ES6 是用ES6实现的算法
-
-## offer 是牛客网剑指offer的算法题目
-
-
-## JavaScript是待删除的项目
-
-## 移管了一些内容
-
-## 更换了git push 的默认内容 使用ssh进行推送
-
-
-都处于学习阶段，因为事情比较多，没有太多时间整理，有时间的情况下回进行更新
