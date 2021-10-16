@@ -3,7 +3,6 @@
 ```bash
 C:.
 ├─.idea		 
-├─hand-code  // 手写代码
 ├─leetcode   // LeetCode
 └─剑指Offer	// LeetCode的剑指Offer
 ```
