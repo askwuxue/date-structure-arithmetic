@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: ..\..\Users\86132\Desktop\面试\images
+---
+
 ##### 1. 谈谈你对作用域链的理解(有赞一面)
 
 > 小提示：同类型的问题还可以是原型链、继承、闭包等，这种概念性的问题你肯定不是一句两句能说清楚的，建议在理解之后自己尝试总结一下，如何把重要的知识点用简短的话语说明白。
@@ -77,7 +81,6 @@ AO对应的是函数执行阶段，当函数被调用执行时，会建立一个
 
 - 实现模块化
 
-##### 
+###### 如何避免回流和重绘
 
-![reflow](https://github.com/askwuxue/arithmetic-hand-code/blob/master/images/reflow.awebp)
-
+![reflow](C:\Users\86132\Desktop\面试\images\reflow.png)
