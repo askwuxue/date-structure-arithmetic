@@ -83,4 +83,4 @@ AO对应的是函数执行阶段，当函数被调用执行时，会建立一个
 
 ###### 如何避免回流和重绘
 
-![reflow](./images/reflow.png)
+![reflow](./images/reflow.awebp)
