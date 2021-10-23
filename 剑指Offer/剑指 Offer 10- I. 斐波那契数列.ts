@@ -1,6 +1,6 @@
 function fib(n: number): number {
-  let p = 0, q = 0, r = 1
-  const MOD = 1000000007
+  let p:number = 0, q:number = 0, r:number = 1
+  const MOD: number = 1000000007
   if (n < 2) {
     return n
   }
