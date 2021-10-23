@@ -24,6 +24,5 @@ function isSymmetric(root: TreeNode | null): boolean {
     }
     return recur(left.left, right.right) && recur(left.right, right.left)
   }
-  // 递归
   return root === null ? true : recur(root.left, root.right)
 };

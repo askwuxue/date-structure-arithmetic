@@ -12,18 +12,18 @@
  * }
  */
 
-function isSymmetric(root: TreeNode | null): boolean {
-
-  // 判断节点是否镜像对称
-  const recur = (left: TreeNode | null, right: TreeNode | null): boolean => {
-    if (left === null && right === null) {
+function isSubStructure(A: TreeNode | null, B: TreeNode | null): boolean {
+  if (A === null || B === null) {
+    return false
+  }
+  const recur = (A: TreeNode | null, B: TreeNode | null) : boolean => {
+    if (B === null) {
       return true
     }
-    if (left === null || right === null || left.val !== right.val) {
+    if (A === null || A.val !== B.val) {
       return false
     }
-    return recur(left.left, right.right) && recur(left.right, right.left)
+    return recur(A.left, B.left) && recur(A.right, B.right)
   }
-  // 递归
-  return root === null ? true : recur(root.left, root.right)
+  return (A !== null && B !== null) && (recur(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B))
 };
