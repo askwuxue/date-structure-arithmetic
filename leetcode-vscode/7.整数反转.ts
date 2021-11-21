@@ -2,6 +2,7 @@
  * @lc app=leetcode.cn id=7 lang=typescript
  *
  * [7] 整数反转
+ * 整数向下取整，负数向上取整 ~~
  */
 
 // @lc code=start

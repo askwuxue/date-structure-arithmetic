@@ -2,6 +2,10 @@
  * @lc app=leetcode.cn id=1 lang=typescript
  *
  * [1] 两数之和
+ * 使用map，将所有出现的数字的以及下标分别存为key， value
+ * 循环nums数组，target - 当前循环到的值 = 另一个值
+ * 循环的过程中不断的在map中访问，是否存在另一个值
+ * 注意：当前值和寻找的值下标不应该相同
  */
 
 // @lc code=start

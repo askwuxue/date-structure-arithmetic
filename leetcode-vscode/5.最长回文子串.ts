@@ -2,6 +2,13 @@
  * @lc app=leetcode.cn id=5 lang=typescript
  *
  * [5] 最长回文子串
+ * 动态规划
+ * 假设从Si 到 Sj 的字符串表示为[Si, Sj],如果 [Si, Sj]想为回文串，则一定有Si === Sj， 并且[Si+1, Sj-1]为回文串
+ * 使用dp[i][j] 标识从i - j 的回文子串的长度，所有长度为1的子串一定是回文串，可以初始化为true
+ * 从长度为2开始遍历，i初始值为0， 则 j - i + 1 = L, j = L + i - 1
+ * 如果Si === Sj 判断长度，小于3，一定是回文串，大于3，dp[i][j] = dp[i + 1][j - 1]
+ * 每轮循环更新maxLen
+ * 最终返回
  */
 
 // @lc code=start

@@ -2,6 +2,15 @@
  * @lc app=leetcode.cn id=2 lang=typescript
  *
  * [2] 两数相加
+ * 创建两个节点，分别为head和tail值为null，head指向头节点，tail作为动态节点不断移动
+ * 初始化进位值carry为0
+ * 循环遍历两个链表，跳出循环条件为l1和l2同时为null
+ * 循环开始取l1 val 和 l2 val ，如果为null，取值为0
+ * 判断头节点是否为null，如果为null，同时初始化head和tail
+ * 否则 更新tail的next节点为新节点，新节点的值为 (l1.val + l2.val + curry) % 10
+ * 更新进位值carry为 (l1.val + l2.val + carry)
+ * 循环结束，判断进位值carry的值，如果大于0，则最后创建一个尾结点
+ * 返回head节点
  */
 
 // @lc code=start
