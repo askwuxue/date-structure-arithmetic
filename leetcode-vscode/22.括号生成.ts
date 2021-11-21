@@ -2,6 +2,11 @@
  * @lc app=leetcode.cn id=22 lang=typescript
  *
  * [22] 括号生成
+ * 回溯法
+ * 开括号数量小于n
+ * 添加开括号，回溯，删除
+ * 闭括号数量小于开括号数量
+ * 添加闭括号，回溯，删除
  */
 
 // @lc code=start
