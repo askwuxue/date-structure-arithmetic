@@ -24,10 +24,10 @@ function reverseList(head: ListNode | null): ListNode | null {
   let pre = null
   let curr = head
   while (curr) {
-    let next = curr.next
+    let temp = curr.next
     curr.next = pre
     pre = curr
-    curr = next
+    curr = temp
   }
   return pre
 };
