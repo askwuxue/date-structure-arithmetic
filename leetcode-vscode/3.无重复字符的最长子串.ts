@@ -2,35 +2,44 @@
  * @lc app=leetcode.cn id=3 lang=typescript
  *
  * [3] 无重复字符的最长子串
- * 滑动窗口的思想
- * 初始化起始位和结束为分别为0
- * 使用set确保唯一性
- * 循环，结束条件为 结束位等于给定字符串长度
- * 如果结束位存在于set，则最长子串为Math.max((end - start), res), 说明子串重复，删除set中起始位start，并且起始
- * 位加1
- * 如果结束位不存在set，说明子串没有重复，当前数加入set，结束位end++
- * 最终的最长子串长度为res
  */
 
 // @lc code=start
+// function lengthOfLongestSubstring(s: string): number {
+//   const len = s.length;
+//   let rk = -1;
+//   let res = 0;
+//   const set = new Set<string>();
+//   for (let i = 0; i < len; ++i) {
+//     if (i !== 0) {
+//       set.delete(s[i - 1]);
+//     }
+//     while (rk + 1 < len && !set.has(s[rk + 1])) {
+//       set.add(s[rk + 1]);
+//       ++rk;
+//     }
+//     res = Math.max(res, rk - i + 1);
+//   }
+//   return res;
+// }
+
 function lengthOfLongestSubstring(s: string): number {
-  const len = s.length
-  let start = 0
-  let end = 0
-  let res = 0
-  const set = new Set<string>()
+  const len = s.length;
+  let start = 0;
+  let end = 0;
+  let res = 0;
+  const set = new Set<string>();
   while (end < len) {
     if (set.has(s[end])) {
-      res = Math.max((end - start), res)
-      set.delete(s[start])
-      start++
+      //   res = Math.max(res, end - start);
+      set.delete(s[start]);
+      ++start;
     } else {
-      set.add(s[end])
-      end++
+      set.add(s[end]);
+      ++end;
     }
+    res = Math.max(res, end - start);
   }
-  res = Math.max((end - start), res)
-  return res
-};
+  return res;
+}
 // @lc code=end
-
