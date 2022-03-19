@@ -49,21 +49,21 @@
  */
 
 // @lc code=start
-// function singleNonDuplicate(nums: number[]): number {
-//   let left = 0,
-//     right = nums.length;
-//   let mid = 0;
-//   while (left < right) {
-//     let mid = left + ~~((right - left) / 2);
-//     if (nums[mid] === nums[mid ^ 1]) {
-//       left = mid + 1;
-//     } else {
-//       right = mid;
-//     }
-//   }
-//   return nums[left];
-// }
 function singleNonDuplicate(nums: number[]): number {
-  return nums.reduce((prev: number, curr: number) => prev ^ curr);
+  let left = 0,
+    right = nums.length;
+  let mid = 0;
+  while (left < right) {
+    let mid = left + ~~((right - left) / 2);
+    if (nums[mid] === nums[mid ^ 1]) {
+      left = mid + 1;
+    } else {
+      right = mid;
+    }
+  }
+  return nums[left];
 }
+// function singleNonDuplicate(nums: number[]): number {
+//   return nums.reduce((prev: number, curr: number) => prev ^ curr);
+// }
 // @lc code=end
