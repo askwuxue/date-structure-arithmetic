@@ -67,10 +67,10 @@ function middleNode(head: ListNode | null): ListNode | null {
   }
   let slow = head;
   let fast = head;
-  while (fast && fast.next !== null) {
+  while (fast.next !== null && fast.next.next !== null) {
     slow = slow.next;
     fast = fast.next.next;
   }
-  return fast;
+  return fast.next === null ? slow : slow.next;
 }
 // @lc code=end
