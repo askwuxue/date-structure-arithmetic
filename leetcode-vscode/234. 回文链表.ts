@@ -67,6 +67,7 @@ function isPalindrome(head: ListNode | null): boolean {
   while (p1 !== null && p2 !== null) {
     if (p1.val !== p2.val) {
       result = false;
+      break;
     }
     p1 = p1.next;
     p2 = p2.next;
