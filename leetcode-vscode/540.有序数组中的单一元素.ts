@@ -52,7 +52,6 @@
 function singleNonDuplicate(nums: number[]): number {
   let left = 0,
     right = nums.length;
-  let mid = 0;
   while (left < right) {
     let mid = left + ~~((right - left) / 2);
     if (nums[mid] === nums[mid ^ 1]) {

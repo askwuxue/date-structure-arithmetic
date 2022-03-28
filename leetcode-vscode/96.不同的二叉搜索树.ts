@@ -41,6 +41,11 @@
  *
  */
 
+// G(n): 长度为 n 的序列能构成的不同二叉搜索树的个数。
+// F(i, n): 以 i 为根、序列长度为 n 的不同二叉搜索树个数(1 ≤ i ≤ n)。
+// G(2) = F(1, 2) + F(2, 2)
+// F(i, n) = G(i - 1) * G(n - i)
+
 // @lc code=start
 function numTrees(n: number): number {
   if (n < 2) {
