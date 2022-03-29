@@ -60,21 +60,25 @@ public class Main104 {
 
     StringBuilder builder = new StringBuilder();
 
+    // 当前选中的内容
     String choose = "";
     String tab = "";
 
     for (String op : list) {
       switch (op) {
         case "1":
+          // 如果选中输入A会将选中的内容清空 
           choose = reset(builder, choose);
           builder.append('A');
           break;
         case "2":
+          // 当前有选中的内容。复制到粘贴板
           if (!choose.isEmpty()) {
             tab = choose;
           }
           break;
         case "3":
+          // 当前有选中的内容。剪切到粘贴板。选中内容清空
           if (!choose.isEmpty()) {
             tab = choose;
             choose = "";
@@ -82,10 +86,12 @@ public class Main104 {
           }
           break;
         case "4":
+          // 当前有选中的内容，则清空，并将剪切板或者粘贴版的内容复制到
           choose = reset(builder, choose);
           builder.append(tab);
           break;
         case "5":
+          // 全选
           if (builder.length() != 0) {
             choose = builder.toString();
           }
