@@ -51,17 +51,31 @@
 /**
  Do not return anything, modify matrix in-place instead.
  */
+// function rotate(matrix: number[][]): void {
+//   const row = matrix.length;
+//   const temp: number[][] = new Array(row).fill([]).map(() => []);
+//   for (let i = 0; i < row; ++i) {
+//     for (let j = 0; j < row; ++j) {
+//       temp[j][row - i - 1] = matrix[i][j];
+//     }
+//   }
+//   for (let i = 0; i < row; ++i) {
+//     for (let j = 0; j < row; ++j) {
+//       matrix[i][j] = temp[i][j];
+//     }
+//   }
+// }
 function rotate(matrix: number[][]): void {
-  const row = matrix.length;
-  const temp: number[][] = new Array(row).fill([]).map(() => []);
-  for (let i = 0; i < row; ++i) {
-    for (let j = 0; j < row; ++j) {
-      temp[j][row - i - 1] = matrix[i][j];
-    }
-  }
-  for (let i = 0; i < row; ++i) {
-    for (let j = 0; j < row; ++j) {
-      matrix[i][j] = temp[i][j];
+  const n = matrix.length;
+  const n1 = ~~(n / 2);
+  const n2 = ~~((n + 1) / 2);
+  for (let i = 0; i < n1; ++i) {
+    for (let j = 0; j < n2; ++j) {
+      let temp = matrix[i][j];
+      matrix[i][j] = matrix[n - j - 1][i];
+      matrix[n - j - 1][i] = matrix[n - i - 1][n - j - 1];
+      matrix[n - i - 1][n - j - 1] = matrix[j][n - i - 1];
+      matrix[j][n - i - 1] = temp;
     }
   }
 }
