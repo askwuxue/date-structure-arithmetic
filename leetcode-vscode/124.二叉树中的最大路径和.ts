@@ -20,27 +20,26 @@
  */
 
 function maxPathSum(root: TreeNode | null): number {
-  let maxRes = Number.MIN_SAFE_INTEGER
+  let maxRes = Number.MIN_SAFE_INTEGER;
   const maxSum = (root: TreeNode | null): number => {
     // 空节点贡献为0
     if (root === null) {
-      return 0
+      return 0;
     }
     // 子树的贡献值
-    let leftMax = Math.max(maxSum(root.left), 0)
-    let rightMax = Math.max(maxSum(root.right), 0)
-    
+    let leftMax = Math.max(maxSum(root.left), 0);
+    let rightMax = Math.max(maxSum(root.right), 0);
+
     // 当前节点的路径和
-    let currSum = root.val + leftMax + rightMax
+    let currSum = root.val + leftMax + rightMax;
 
     // 更新最大路径和
-    maxRes = Math.max(maxRes, currSum)
+    maxRes = Math.max(maxRes, currSum);
 
     // 返回当前节点为根节点的最大路径和
-    return root.val + Math.max(leftMax, rightMax)
-  }
-  maxSum(root)
-  return maxRes
-};
+    return root.val + Math.max(leftMax, rightMax);
+  };
+  maxSum(root);
+  return maxRes;
+}
 // @lc code=end
-
