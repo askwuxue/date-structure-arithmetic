@@ -71,7 +71,6 @@
 function firstUniqChar(s: string): number {
   const position = new Map<string, number>();
   const queue = [];
-  const len = s.length;
   for (const [index, char] of Array.from(s).entries()) {
     if (!position.has(char)) {
       position.set(char, index);
