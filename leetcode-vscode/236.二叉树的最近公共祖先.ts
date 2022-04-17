@@ -72,34 +72,69 @@
  * }
  */
 
+// function lowestCommonAncestor(
+//   root: TreeNode | null,
+//   p: TreeNode | null,
+//   q: TreeNode | null
+// ): TreeNode | null {
+//   if (root === null) {
+//     return null;
+//   }
+//   let res = null;
+//   const dfs = (
+//     root: TreeNode | null,
+//     p: TreeNode | null,
+//     q: TreeNode | null
+//   ): boolean => {
+//     if (root === null) {
+//       return false;
+//     }
+//     let lson = dfs(root.left, p, q);
+//     let rson = dfs(root.right, p, q);
+//     if (
+//       (lson && rson) ||
+//       ((root.val === p.val || root.val === q.val) && (lson || rson))
+//     ) {
+//       res = root;
+//     }
+//     return lson || rson || root.val === p.val || root.val === q.val;
+//   };
+//   dfs(root, p, q);
+//   return res;
+// }
+
+// 存储父节点
 function lowestCommonAncestor(
   root: TreeNode | null,
   p: TreeNode | null,
   q: TreeNode | null
 ): TreeNode | null {
-  if (root === null) {
+  if (root == null) {
     return null;
   }
-  let res = null;
-  const dfs = (
-    root: TreeNode | null,
-    p: TreeNode | null,
-    q: TreeNode | null
-  ): boolean => {
-    if (root === null) {
-      return false;
+  const hashMap = new Map<number, TreeNode>();
+  const set = new Set<number>();
+  const dfs = (root: TreeNode) => {
+    if (root.left !== null) {
+      hashMap.set(root.left.val, root);
+      dfs(root.left);
     }
-    let lson = dfs(root.left, p, q);
-    let rson = dfs(root.right, p, q);
-    if (
-      (lson && rson) ||
-      ((root.val === p.val || root.val === q.val) && (lson || rson))
-    ) {
-      res = root;
+    if (root.right !== null) {
+      hashMap.set(root.right.val, root);
+      dfs(root.right);
     }
-    return lson || rson || root.val === p.val || root.val === q.val;
   };
-  dfs(root, p, q);
-  return res;
+  dfs(root);
+  while (p) {
+    set.add(p.val);
+    p = hashMap.get(p.val);
+  }
+  while (q) {
+    if (set.has(q.val)) {
+      return q;
+    }
+    q = hashMap.get(q.val);
+  }
+  return null;
 }
 // @lc code=end
